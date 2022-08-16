@@ -1,13 +1,45 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Highlight nav bar item when on page */
+.active {
+  background-color: #666;
+}
+
+/* Display description of page on mouse hover */
+.hoverable {
+  position: relative;
+}
+
+.hoverable > .hoverable__tooltip {
+  display: none;
+}
+
+.hoverable:hover > .hoverable__tooltip {
+  position: absolute;
+  display: inline-block;
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+  border: 1px solid black;
+  background: #888;
+  font-size: xx-small;
+  font-style: italic;
+  color: aliceblue;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  z-index: 1;
 }
