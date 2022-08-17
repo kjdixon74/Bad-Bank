@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { UserContext, Card } from "./Context";
+import { useState } from "react";
+import { Card } from "./Context";
 
 function Withdraw() {
   const [withdrawAmt, setWithdrawAmt] = useState("");
@@ -8,8 +8,6 @@ function Withdraw() {
   const [showError, setShowError] = useState(false);
   const [accountBalance, setAccountBalance] = useState(100);
   const [showForm, setShowForm] = useState(true);
-
-  const cxt = useContext(UserContext);
 
   function handleChange(value) {
     // Update withdraw value with user's input
@@ -34,9 +32,7 @@ function Withdraw() {
 
     // Check if user's input exceeds account balance
     if (Number(input) > accountBalance) {
-      setWithdrawError(
-        "Error: cannot withdraw more than your account balance."
-      );
+      setWithdrawError("Error: cannot withdraw more than account balance.");
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
       return false;
@@ -116,12 +112,7 @@ function Withdraw() {
           ) : (
             <>
               <h5>Your withdraw has been processed.</h5>
-              <button
-                type="submit"
-                onClick={clearForm}
-                className="btn btn-light"
-                id="clearWithdraw"
-              >
+              <button type="submit" onClick={clearForm} id="clearWithdraw">
                 Make another withdraw
               </button>
             </>

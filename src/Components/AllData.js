@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import { useContext } from "react";
 import { UserContext, Card } from "./Context";
 
@@ -6,24 +7,13 @@ function AllData() {
   const users = cxt.users;
 
   const userElement = users.map((user, index) => (
-    <ul className="list-group list-group-flush" key={index}>
-      <li className="list-group-item" key={"user" + { index }}>
-        User: {index + 1}
-      </li>
-      <li className="list-group-item" key={"name" + { index }}>
-        Name: {user.name}
-      </li>
-      <li className="list-group-item" key={"email" + { index }}>
-        Email: {user.email}
-      </li>
-      <li className="list-group-item" key={"password" + { index }}>
-        Password: {user.password}
-      </li>
-      <li className="list-group-item" key={"balance" + { index }}>
-        Balance: ${user.balance}
-      </li>
-      <br />
-    </ul>
+    <tbody key={index}>
+      <tr>
+        <td key={"name" + index}>{user.name}</td>
+        <td key={"email" + index}>{user.email}</td>
+        <td key={"password" + index}>{user.password}</td>
+      </tr>
+    </tbody>
   ));
 
   return (
@@ -32,17 +22,16 @@ function AllData() {
       txtcolor="black"
       header="User Submissions"
       body={
-        <div
-          className="card"
-          style={{
-            width: "15rem",
-            color: "white",
-            backgroundColor: "rgb(107, 128, 104)",
-          }}
-        >
-          <div className="card-header">Users</div>
+        <table className="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Password</th>
+            </tr>
+          </thead>
           {userElement}
-        </div>
+        </table>
       }
     />
   );

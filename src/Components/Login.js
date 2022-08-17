@@ -1,92 +1,84 @@
 import { useState, useContext } from "react";
-import { UserContext, CurrentUserContext, Card } from "./Context";
+import { UserContext, Card } from "./Context";
 
 function Login() {
   const [showForm, setShowForm] = useState(true);
+  const [disableLogin, setDisableLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [showError, setShowError] = useState(false);
+  const [loggedInName, setLoggedInName] = useState("");
 
   const cxt = useContext(UserContext);
-  const { setCurrentUser } = useContext(CurrentUserContext);
+  const users = cxt.users;
 
-  function validateEmail(email) {
-    console.log(email);
-    if (!email) {
-      // No email
-      console.log("no email");
-      setLoginError("Error: email required.");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
-      setLoginError("");
-      return false;
+  function handleChange(value) {
+    // Disable login button if email and password fields are blank
+    if (value) {
+      setDisableLogin(false);
+    } else {
+      setDisableLogin(true);
     }
-
-    cxt.users.forEach((user) => {
-      if (user.email === email) {
-        // Email exists
-        setLoginError("");
-        return true;
-      } else {
-        // Email does not exist
-        setLoginError(
-          "Error: user does not exist.  Please enter a valid email, or create a new account."
-        );
-        setShowError(true);
-        setTimeout(() => setShowError(false), 3000);
-        return false;
-      }
-    });
   }
 
-  function validatePassword(password) {
-    // No password
-    if (!password) {
-      setLoginError("Error: password required.");
+  function validate(field, label) {
+    if (!field) {
+      // No email or password
+      setLoginError(`Error: ${label} required.`);
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
       return false;
     }
-
-    // // Check if password matches username
-    // cxt.users.forEach((user) => {
-    //   // Get right user
-    //   if (user.email === email) {
-    //     // Right password
-    //     if (user.password === password) {
-    //       setPasswordError("");
-    //       setShowEmail(false);
-    //       setShowPassword(false);
-    //       setCurrentUser(user.name);
-    //     } else {
-    //       // Wrong password
-    //       setPasswordError(
-    //         "Incorrect password. Please enter correct password."
-    //       );
-    //     }
-    //   }
-    // });
 
     setLoginError("");
     return true;
   }
 
-  function handleLogin(email, password) {
-    console.log(email, password);
+  function confirmUser(email, password) {
+    // Confirm email
+    const currentUser = users.filter((user) => user.email === email);
+
+    if (currentUser.length > 0) {
+      // Email exists
+      if (currentUser[0].password === password) {
+        // Password exists
+        const currentName = currentUser[0].name;
+        setLoggedInName(currentName);
+        setLoginError("");
+        return true;
+      } else {
+        // Password does not exist
+        setLoginError("Error: incorrect password.");
+        setShowError(true);
+        setTimeout(() => setShowError(false), 3000);
+        return false;
+      }
+    } else {
+      // Email does not exist
+      setLoginError(
+        "Error: email does not exist.  Please enter a valid email, or create a new account."
+      );
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+      return false;
+    }
+  }
+
+  function handleLogin() {
     // Validate email
-    if (!validateEmail(email)) {
-      console.log(validateEmail(email));
-      return;
-    }
-    console.log("email validated");
+    if (!validate(email, "email")) return;
+
     // Validate password
-    if (!validatePassword(password)) {
-      return;
-    }
+    if (!validate(password, "password")) return;
+
+    // Confirm user exists
+    if (!confirmUser(email, password)) return;
 
     // Show success message
     setShowForm(false);
+
+    // Show logout on nav bar
   }
 
   return (
@@ -104,7 +96,10 @@ function Login() {
                   type="email"
                   placeholder="Enter email here"
                   value={email}
-                  onChange={(e) => setEmail(e.currentTarget.value)}
+                  onChange={(e) => {
+                    setEmail(e.currentTarget.value);
+                    handleChange(e.currentTarget.value);
+                  }}
                   className="form-control"
                   id="loginEmail"
                 />
@@ -115,7 +110,10 @@ function Login() {
                   type="password"
                   placeholder="Enter password here"
                   value={password}
-                  onChange={(e) => setPassword(e.currentTarget.value)}
+                  onChange={(e) => {
+                    setPassword(e.currentTarget.value);
+                    handleChange(e.currentTarget.value);
+                  }}
                   className="form-control"
                   id="loginPassword"
                 />
@@ -123,15 +121,16 @@ function Login() {
                 <br />
                 <button
                   type="submit"
-                  onClick={() => handleLogin(email, password)}
-                  id="loginPasswordBtn"
+                  onClick={handleLogin}
+                  id="loginBtn"
+                  disabled={disableLogin}
                 >
                   Login
                 </button>
               </div>
             </>
           ) : (
-            <div id="loginSuccess">Welcome back, Username!</div>
+            <div id="loginSuccess">Welcome back, {loggedInName}!</div>
           )}
         </>
       }
@@ -139,13 +138,4 @@ function Login() {
   );
 }
 
-// Future improvements
-// Figure out why page is reloading at beginning and fix
-// Do I have to reset login values back to default once successfully logged in? UI is reset when I click a new tab and React state variables appear to reset.
-// Don't allow user to log back in unless logged out
-// Add ability to log out
-// When log out, will need to clear current user context
-
 export default Login;
-
-// Don't forget to say welcome back to the user's name

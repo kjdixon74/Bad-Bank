@@ -21,8 +21,9 @@ code {
   color: white;
 }
 
-.list-group-item {
-  background-color: beige;
+th,
+td {
+  font-size: small;
 }
 
 /* Highlight nav bar item when on page */

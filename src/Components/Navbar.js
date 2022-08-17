@@ -1,11 +1,6 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { UserContext, CurrentUserContext } from "./Context";
 
 function NavBar() {
-  const ctx = useContext(UserContext);
-  const { currentUser } = useContext(CurrentUserContext);
-
   return (
     // Style nav bar with Bootstrap
     // Highlight nav bar item when on page with NavLink
@@ -52,7 +47,7 @@ function NavBar() {
               <span className="hoverable__tooltip">Track user submissions</span>
             </NavLink>
           </li>
-          {currentUser && (
+          {/* {
             <li className="nav-item">
               <NavLink className="nav-link hoverable" to="/logout/">
                 Logout
@@ -61,7 +56,7 @@ function NavBar() {
                 </span>
               </NavLink>
             </li>
-          )}
+          } */}
         </ul>
       </div>
     </nav>
@@ -70,5 +65,18 @@ function NavBar() {
 
 export default NavBar;
 
-// Use for videos: hightlight - add/remove css class (let React update/handle the DOM) -> NavLink,
-// hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling
+// Use Navbar for video: hightlight - add/remove css class (let React update/handle the DOM) -> NavLink, hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling
+
+// Future improvements!
+
+// Create Account
+// Check if email is an actual email address
+// Check if user already exists
+
+// Deposit and Withdraw
+// type="number"
+// min="1"
+// onChange={(e) => setDeposit(Number(e.currentTarget.value))}
+
+// Login and Logout
+// Don't allow user to log back in unless logged out

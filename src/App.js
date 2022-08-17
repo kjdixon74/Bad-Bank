@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import { UserContext, CurrentUserContext } from "./Components/Context";
+import { UserContext, LoggedInUserContext } from "./Components/Context";
 import NavBar from "./Components/Navbar";
 import Home from "./Components/Home";
 import CreateAccount from "./Components/CreateAccount";
@@ -15,13 +15,13 @@ import "./App.css";
 
 function App() {
   useContext(UserContext);
-  useContext(CurrentUserContext);
+  useContext(LoggedInUserContext);
 
-  const [currentUser, setCurrentUser] = useState("");
+  const [loggedInUser, setLoggedInUser] = useState("");
 
   return (
     <HashRouter>
-      <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
+      <LoggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
         <NavBar />
         <br />
         <UserContext.Provider
@@ -46,7 +46,7 @@ function App() {
             <Route path="/logout/" element={<Logout />} />
           </Routes>
         </UserContext.Provider>
-      </CurrentUserContext.Provider>
+      </LoggedInUserContext.Provider>
     </HashRouter>
   );
 }

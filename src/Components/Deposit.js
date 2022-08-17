@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { UserContext, Card } from "./Context";
+import { useState } from "react";
+import { Card } from "./Context";
 
 function Deposit() {
   const [depositAmt, setDepositAmt] = useState("");
@@ -8,8 +8,6 @@ function Deposit() {
   const [showError, setShowError] = useState(false);
   const [accountBalance, setAccountBalance] = useState(0);
   const [showForm, setShowForm] = useState(true);
-
-  const cxt = useContext(UserContext);
 
   function handleChange(value) {
     // Update deposit value with user's input
@@ -106,12 +104,7 @@ function Deposit() {
           ) : (
             <>
               <h5>Your deposit has been received.</h5>
-              <button
-                type="submit"
-                onClick={clearForm}
-                className="btn btn-light"
-                id="clearDeposit"
-              >
+              <button type="submit" onClick={clearForm} id="clearDeposit">
                 Make another deposit
               </button>
             </>
@@ -123,10 +116,3 @@ function Deposit() {
 }
 
 export default Deposit;
-
-// Come back to deposit and withdraw after login and logout because need to know what user is logged in to pull up account data
-
-// Future improvements for deposit and withdraw!
-// type="number"
-// min="1"
-// onChange={(e) => setDeposit(Number(e.currentTarget.value))}

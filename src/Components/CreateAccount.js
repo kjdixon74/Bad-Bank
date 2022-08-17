@@ -131,12 +131,7 @@ function CreateAccount() {
         ) : (
           <>
             <h5>You have successfully created your account.</h5>
-            <button
-              type="submit"
-              onClick={clearForm}
-              className="btn btn-light"
-              id="clearBtn"
-            >
+            <button type="submit" onClick={clearForm} id="clearBtn">
               Add another user
             </button>
           </>
@@ -148,7 +143,3 @@ function CreateAccount() {
 }
 
 export default CreateAccount;
-
-// Future improvements!
-// Check if email is an actual email address
-// Check if user already exists
