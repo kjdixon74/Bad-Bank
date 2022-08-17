@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: beige;
 }
 
 code {
@@ -12,9 +13,21 @@ code {
     monospace;
 }
 
+.navbar {
+  background-color: rgb(107, 128, 104);
+}
+
+.nav-link {
+  color: white;
+}
+
+.list-group-item {
+  background-color: beige;
+}
+
 /* Highlight nav bar item when on page */
 .active {
-  background-color: #666;
+  background-color: rgb(166, 162, 162);
 }
 
 /* Display description of page on mouse hover */
@@ -34,10 +47,10 @@ code {
   left: 50%;
   margin-left: -60px;
   border: 1px solid black;
-  background: #888;
+  background: rgb(166, 162, 162);
   font-size: xx-small;
   font-style: italic;
-  color: aliceblue;
+  color: white;
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;

@@ -1,7 +1,5 @@
 import { useContext, useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-
 import { UserContext, CurrentUserContext } from "./Components/Context";
 import NavBar from "./Components/Navbar";
 import Home from "./Components/Home";
@@ -11,6 +9,7 @@ import Deposit from "./Components/Deposit";
 import Withdraw from "./Components/Withdraw";
 import AllData from "./Components/AllData";
 import Logout from "./Components/Logout";
+import "./App.css";
 
 // Create a routing mechanism, reference component that was written, & provide paths for where the components should be loaded
 

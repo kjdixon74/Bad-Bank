@@ -69,8 +69,8 @@ function CreateAccount() {
 
   return (
     <Card
-      bgcolor="primary"
-      txtcolor="white"
+      bgcolor="light"
+      txtcolor="black"
       header={
         show
           ? "Please fill out the fields below to create an account."
@@ -121,7 +121,6 @@ function CreateAccount() {
             <button
               type="submit"
               onClick={handleCreate}
-              className="btn btn-light"
               id="createBtn"
               disabled={disableCreate}
             >

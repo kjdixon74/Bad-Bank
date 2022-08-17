@@ -6,7 +6,7 @@ function Deposit() {
   const [disableDeposit, setDisableDeposit] = useState(true);
   const [depositError, setDepositError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [accountBalance, setAccountBalance] = useState(0.0);
+  const [accountBalance, setAccountBalance] = useState(0);
   const [showForm, setShowForm] = useState(true);
 
   const cxt = useContext(UserContext);
@@ -26,7 +26,7 @@ function Deposit() {
   function validate(input) {
     // Check if user's input is NaN
     if (isNaN(input)) {
-      setDepositError("Error: deposit is not a number.");
+      setDepositError("Error: deposit amount is not a number.");
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
       return false;
@@ -34,7 +34,7 @@ function Deposit() {
 
     // Check if user's input is a negative number
     if (Number(input) < 0) {
-      setDepositError("Error: cannot deposit a negative number.");
+      setDepositError("Error: cannot deposit a negative amount.");
       setShowError(true);
       setTimeout(() => setShowError(false), 3000);
       return false;
@@ -74,11 +74,9 @@ function Deposit() {
 
   return (
     <Card
-      bgcolor="primary"
-      txtcolor="white"
-      header={
-        showForm ? "How much would you like to deposit?" : "Congratulations!"
-      }
+      bgcolor="light"
+      txtcolor="black"
+      header={showForm ? "How much would you like to deposit?" : "Success!"}
       body={
         <>
           <div>Current Account Balance</div>
@@ -107,7 +105,7 @@ function Deposit() {
             </>
           ) : (
             <>
-              <h5>Your deposit has been successfully received.</h5>
+              <h5>Your deposit has been received.</h5>
               <button
                 type="submit"
                 onClick={clearForm}
@@ -126,9 +124,9 @@ function Deposit() {
 
 export default Deposit;
 
-// Come back after login and logout because need to know what user is logged in, to pull up account data
+// Come back to deposit and withdraw after login and logout because need to know what user is logged in to pull up account data
 
-// Future improvements!
+// Future improvements for deposit and withdraw!
 // type="number"
 // min="1"
 // onChange={(e) => setDeposit(Number(e.currentTarget.value))}

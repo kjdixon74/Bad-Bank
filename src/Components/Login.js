@@ -2,130 +2,136 @@ import { useState, useContext } from "react";
 import { UserContext, CurrentUserContext, Card } from "./Context";
 
 function Login() {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [showEmail, setShowEmail] = useState(true);
-  const [showEmailBtn, setShowEmailBtn] = useState(true);
-  const [emailError, setEmailError] = useState("");
+  const [showForm, setShowForm] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const cxt = useContext(UserContext);
   const { setCurrentUser } = useContext(CurrentUserContext);
 
-  function validateEmail() {
-    if (!userEmail) {
+  function validateEmail(email) {
+    console.log(email);
+    if (!email) {
       // No email
-      setShowEmailBtn(true);
-      setEmailError("Please enter email.");
+      console.log("no email");
+      setLoginError("Error: email required.");
       setShowError(true);
-      setShowPassword(false);
-      return;
+      setTimeout(() => setShowError(false), 3000);
+      setLoginError("");
+      return false;
     }
 
     cxt.users.forEach((user) => {
-      if (user.email === userEmail) {
+      if (user.email === email) {
         // Email exists
-        setShowEmailBtn(false);
-        setEmailError("");
-        setShowError(false);
-        setShowPassword(true);
+        setLoginError("");
+        return true;
       } else {
         // Email does not exist
-        setShowEmailBtn(true);
-        setEmailError(
-          "User does not exist.  Please enter a valid email, or create a new account."
+        setLoginError(
+          "Error: user does not exist.  Please enter a valid email, or create a new account."
         );
         setShowError(true);
-        setShowPassword(false);
+        setTimeout(() => setShowError(false), 3000);
+        return false;
       }
     });
   }
 
-  function validatePassword() {
+  function validatePassword(password) {
     // No password
-    if (!userPassword) {
-      setPasswordError("Please enter password.");
+    if (!password) {
+      setLoginError("Error: password required.");
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+      return false;
+    }
+
+    // // Check if password matches username
+    // cxt.users.forEach((user) => {
+    //   // Get right user
+    //   if (user.email === email) {
+    //     // Right password
+    //     if (user.password === password) {
+    //       setPasswordError("");
+    //       setShowEmail(false);
+    //       setShowPassword(false);
+    //       setCurrentUser(user.name);
+    //     } else {
+    //       // Wrong password
+    //       setPasswordError(
+    //         "Incorrect password. Please enter correct password."
+    //       );
+    //     }
+    //   }
+    // });
+
+    setLoginError("");
+    return true;
+  }
+
+  function handleLogin(email, password) {
+    console.log(email, password);
+    // Validate email
+    if (!validateEmail(email)) {
+      console.log(validateEmail(email));
+      return;
+    }
+    console.log("email validated");
+    // Validate password
+    if (!validatePassword(password)) {
       return;
     }
 
-    // Check if password matches username
-    cxt.users.forEach((user) => {
-      // Get right user
-      if (user.email === userEmail) {
-        // Right password
-        if (user.password === userPassword) {
-          setPasswordError("");
-          setShowEmail(false);
-          setShowPassword(false);
-          setCurrentUser(user.name);
-        } else {
-          // Wrong password
-          setPasswordError(
-            "Incorrect password. Please enter correct password."
-          );
-        }
-      }
-    });
+    // Show success message
+    setShowForm(false);
   }
 
   return (
     <Card
-      bgcolor="primary"
-      txtcolor="white"
-      header="Login"
+      bgcolor="light"
+      txtcolor="black"
+      header={showForm ? "Login" : "Success!"}
       body={
         <>
-          {showEmail ? (
-            <div>
-              Email
-              <input
-                type="email"
-                placeholder="Enter email here"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.currentTarget.value)}
-                className="form-control"
-                id="loginEmail"
-              />
-            </div>
-          ) : (
-            <div id="loginSuccess" style={{ color: "yellow" }}>
-              Success!
-            </div>
-          )}
-          {showEmailBtn && (
-            <button type="submit" onClick={validateEmail} id="loginEmailBtn">
-              Submit
-            </button>
-          )}
-          {showError && (
-            <div id="loginEmailError" style={{ color: "red" }}>
-              {emailError}
-            </div>
-          )}
-          {showPassword && (
-            <div>
-              Password
-              <input
-                type="password"
-                placeholder="Enter password"
-                value={userPassword}
-                onChange={(e) => setUserPassword(e.currentTarget.value)}
-                className="form-control"
-                id="loginPassword"
-              />
-              <div id="loginPasswordError" style={{ color: "red" }}>
-                {passwordError}
+          {showForm ? (
+            <>
+              <div>
+                Email
+                <input
+                  type="email"
+                  placeholder="Enter email here"
+                  value={email}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
+                  className="form-control"
+                  id="loginEmail"
+                />
               </div>
-              <button
-                type="submit"
-                onClick={validatePassword}
-                id="loginPasswordBtn"
-              >
-                Login
-              </button>
-            </div>
+              <div>
+                Password
+                <input
+                  type="password"
+                  placeholder="Enter password here"
+                  value={password}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
+                  className="form-control"
+                  id="loginPassword"
+                />
+                {showError && <div>{loginError}</div>}
+                <br />
+                <button
+                  type="submit"
+                  onClick={() => handleLogin(email, password)}
+                  id="loginPasswordBtn"
+                >
+                  Login
+                </button>
+              </div>
+            </>
+          ) : (
+            <div id="loginSuccess">Welcome back, Username!</div>
           )}
         </>
       }
@@ -141,3 +147,5 @@ function Login() {
 // When log out, will need to clear current user context
 
 export default Login;
+
+// Don't forget to say welcome back to the user's name
