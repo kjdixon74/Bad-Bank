@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import { UserContext, LoggedInUserContext } from "./Components/Context";
+import { UserContext } from "./Components/Context";
 import NavBar from "./Components/Navbar";
 import Home from "./Components/Home";
 import CreateAccount from "./Components/CreateAccount";
@@ -15,38 +15,34 @@ import "./App.css";
 
 function App() {
   useContext(UserContext);
-  useContext(LoggedInUserContext);
-
-  const [loggedInUser, setLoggedInUser] = useState("");
 
   return (
     <HashRouter>
-      <LoggedInUserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
-        <NavBar />
-        <br />
-        <UserContext.Provider
-          value={{
-            users: [
-              {
-                name: "kat",
-                email: "kat@mit.edu",
-                password: "secret",
-                balance: 100,
-              },
-            ],
-          }}
-        >
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/createaccount/" element={<CreateAccount />} />
-            <Route path="/login/" element={<Login />} />
-            <Route path="/deposit/" element={<Deposit />} />
-            <Route path="/withdraw/" element={<Withdraw />} />
-            <Route path="/alldata/" element={<AllData />} />
-            <Route path="/logout/" element={<Logout />} />
-          </Routes>
-        </UserContext.Provider>
-      </LoggedInUserContext.Provider>
+      <NavBar />
+      <br />
+      <UserContext.Provider
+        value={{
+          users: [
+            {
+              name: "kat",
+              email: "kat@mit.edu",
+              password: "secret",
+              balance: 100,
+              loggedIn: false,
+            },
+          ],
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/createaccount/" element={<CreateAccount />} />
+          <Route path="/login/" element={<Login />} />
+          <Route path="/deposit/" element={<Deposit />} />
+          <Route path="/withdraw/" element={<Withdraw />} />
+          <Route path="/alldata/" element={<AllData />} />
+          <Route path="/logout/" element={<Logout />} />
+        </Routes>
+      </UserContext.Provider>
     </HashRouter>
   );
 }

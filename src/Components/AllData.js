@@ -12,6 +12,14 @@ function AllData() {
         <td key={"name" + index}>{user.name}</td>
         <td key={"email" + index}>{user.email}</td>
         <td key={"password" + index}>{user.password}</td>
+        <td key={"balance" + index}>
+          $
+          {user.balance
+            .toFixed(2)
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </td>
+        <td key={"loggedIn" + index}>{user.loggedIn.toString()}</td>
       </tr>
     </tbody>
   ));
@@ -28,6 +36,8 @@ function AllData() {
               <th scope="col">Name</th>
               <th scope="col">Email</th>
               <th scope="col">Password</th>
+              <th scope="col">Balance</th>
+              <th scope="col">Login</th>
             </tr>
           </thead>
           {userElement}

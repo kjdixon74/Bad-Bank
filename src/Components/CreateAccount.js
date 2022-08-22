@@ -53,7 +53,7 @@ function CreateAccount() {
     if (!checkPasswordLength(password, "password")) return;
 
     // If validate all fields, create user
-    cxt.users.push({ name, email, password, balance: 0 });
+    cxt.users.push({ name, email, password, balance: 0, loggedIn: false });
 
     // If validate all fields, show success message and ability to add another user
     setShow(false);

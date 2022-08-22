@@ -1,13 +1,21 @@
-import { useState } from "react";
-import { Card } from "./Context";
+import { useState, useContext } from "react";
+import { UserContext, Card } from "./Context";
 
 function Withdraw() {
   const [withdrawAmt, setWithdrawAmt] = useState("");
   const [disableWithdraw, setDisableWithdraw] = useState(true);
   const [withdrawError, setWithdrawError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [accountBalance, setAccountBalance] = useState(100);
   const [showForm, setShowForm] = useState(true);
+
+  const cxt = useContext(UserContext);
+  const users = cxt.users;
+  // Check for a logged in user
+  const currentUser = users.filter((user) => user.loggedIn === true);
+  // If so, show user's account balance
+  const [accountBalance, setAccountBalance] = useState(
+    currentUser.length > 0 ? currentUser[0].balance : 0
+  );
 
   function handleChange(value) {
     // Update withdraw value with user's input
@@ -67,6 +75,11 @@ function Withdraw() {
     // Convert withdraw to a number, add to account balance, and update account balance
     setAccountBalance(accountBalance - Number(withdrawAmt));
 
+    // Update account balance for logged in user
+    if (currentUser.length > 0) {
+      currentUser[0].balance = accountBalance - Number(withdrawAmt);
+    }
+
     // Show success message
     setShowForm(false);
   }
@@ -79,47 +92,61 @@ function Withdraw() {
   }
 
   return (
-    <Card
-      bgcolor="light"
-      txtcolor="black"
-      header={showForm ? "How much would you like to withdraw?" : "Success!"}
-      body={
-        <>
-          <div>Current Account Balance</div>
-          <h4 id="withdrawAcctBal">${accountBalance.toFixed(2)}</h4>
-          <br />
-          {showForm ? (
+    <>
+      {currentUser.length > 0 ? (
+        <Card
+          bgcolor="light"
+          txtcolor="black"
+          header={
+            showForm ? "How much would you like to withdraw?" : "Success!"
+          }
+          body={
             <>
-              <div>Amount</div>
-              <input
-                type="text"
-                value={withdrawAmt}
-                onChange={(e) => handleChange(e.currentTarget.value)}
-                className="form-control"
-                id="withdrawAmt"
-              />
-              {showError && <div>{withdrawError}</div>}
+              <div>Current Account Balance</div>
+              <h4 id="withdrawAcctBal">
+                $
+                {accountBalance
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </h4>
               <br />
-              <button
-                type="submit"
-                onClick={handleWithdraw}
-                disabled={disableWithdraw}
-                id="withdrawBtn"
-              >
-                Withdraw
-              </button>
+              {showForm ? (
+                <>
+                  <div>Amount</div>
+                  <input
+                    type="text"
+                    value={withdrawAmt}
+                    onChange={(e) => handleChange(e.currentTarget.value)}
+                    className="form-control"
+                    id="withdrawAmt"
+                  />
+                  {showError && <div>{withdrawError}</div>}
+                  <br />
+                  <button
+                    type="submit"
+                    onClick={handleWithdraw}
+                    disabled={disableWithdraw}
+                    id="withdrawBtn"
+                  >
+                    Withdraw
+                  </button>
+                </>
+              ) : (
+                <>
+                  <h5>Your withdraw has been processed.</h5>
+                  <button type="submit" onClick={clearForm} id="clearWithdraw">
+                    Make another withdraw
+                  </button>
+                </>
+              )}
             </>
-          ) : (
-            <>
-              <h5>Your withdraw has been processed.</h5>
-              <button type="submit" onClick={clearForm} id="clearWithdraw">
-                Make another withdraw
-              </button>
-            </>
-          )}
-        </>
-      }
-    />
+          }
+        />
+      ) : (
+        <h4>Please log in.</h4>
+      )}
+    </>
   );
 }
 

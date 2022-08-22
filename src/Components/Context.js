@@ -2,7 +2,6 @@ import { createContext } from "react";
 
 // Add context
 export const UserContext = createContext(null);
-export const LoggedInUserContext = createContext(null);
 
 // Style with Bootstrap card
 export function Card(props) {

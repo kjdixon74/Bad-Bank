@@ -1,13 +1,21 @@
-import { useState } from "react";
-import { Card } from "./Context";
+import { useState, useContext } from "react";
+import { UserContext, Card } from "./Context";
 
 function Deposit() {
   const [depositAmt, setDepositAmt] = useState("");
   const [disableDeposit, setDisableDeposit] = useState(true);
   const [depositError, setDepositError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [accountBalance, setAccountBalance] = useState(0);
   const [showForm, setShowForm] = useState(true);
+
+  const cxt = useContext(UserContext);
+  const users = cxt.users;
+  // Check for a logged in user
+  const currentUser = users.filter((user) => user.loggedIn === true);
+  // If so, show user's account balance
+  const [accountBalance, setAccountBalance] = useState(
+    currentUser.length > 0 ? currentUser[0].balance : 0
+  );
 
   function handleChange(value) {
     // Update deposit value with user's input
@@ -59,6 +67,11 @@ function Deposit() {
     // Convert deposit to a number, add to account balance, and update account balance
     setAccountBalance(Number(depositAmt) + accountBalance);
 
+    // Update account balance for logged in user
+    if (currentUser.length > 0) {
+      currentUser[0].balance = Number(depositAmt) + accountBalance;
+    }
+
     // Show success message
     setShowForm(false);
   }
@@ -71,47 +84,59 @@ function Deposit() {
   }
 
   return (
-    <Card
-      bgcolor="light"
-      txtcolor="black"
-      header={showForm ? "How much would you like to deposit?" : "Success!"}
-      body={
-        <>
-          <div>Current Account Balance</div>
-          <h4 id="depositAcctBal">${accountBalance.toFixed(2)}</h4>
-          <br />
-          {showForm ? (
+    <>
+      {currentUser.length > 0 ? (
+        <Card
+          bgcolor="light"
+          txtcolor="black"
+          header={showForm ? "How much would you like to deposit?" : "Success!"}
+          body={
             <>
-              <div>Amount</div>
-              <input
-                type="text"
-                value={depositAmt}
-                onChange={(e) => handleChange(e.currentTarget.value)}
-                className="form-control"
-                id="depositAmt"
-              />
-              {showError && <div>{depositError}</div>}
+              <div>Current Account Balance</div>
+              <h4 id="depositAcctBal">
+                $
+                {accountBalance
+                  .toFixed(2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </h4>
               <br />
-              <button
-                type="submit"
-                onClick={handleDeposit}
-                disabled={disableDeposit}
-                id="depositBtn"
-              >
-                Deposit
-              </button>
+              {showForm ? (
+                <>
+                  <div>Amount</div>
+                  <input
+                    type="text"
+                    value={depositAmt}
+                    onChange={(e) => handleChange(e.currentTarget.value)}
+                    className="form-control"
+                    id="depositAmt"
+                  />
+                  {showError && <div>{depositError}</div>}
+                  <br />
+                  <button
+                    type="submit"
+                    onClick={handleDeposit}
+                    disabled={disableDeposit}
+                    id="depositBtn"
+                  >
+                    Deposit
+                  </button>
+                </>
+              ) : (
+                <>
+                  <h5>Your deposit has been received.</h5>
+                  <button type="submit" onClick={clearForm} id="clearDeposit">
+                    Make another deposit
+                  </button>
+                </>
+              )}
             </>
-          ) : (
-            <>
-              <h5>Your deposit has been received.</h5>
-              <button type="submit" onClick={clearForm} id="clearDeposit">
-                Make another deposit
-              </button>
-            </>
-          )}
-        </>
-      }
-    />
+          }
+        />
+      ) : (
+        <h4>Please log in.</h4>
+      )}
+    </>
   );
 }
 

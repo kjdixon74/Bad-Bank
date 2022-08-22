@@ -42,21 +42,19 @@ function NavBar() {
             </NavLink>
           </li>
           <li className="nav-item">
+            <NavLink className="nav-link hoverable" to="/logout/">
+              Logout
+              <span className="hoverable__tooltip">
+                Sign out of your account
+              </span>
+            </NavLink>
+          </li>
+          <li className="nav-item">
             <NavLink className="nav-link hoverable" to="/alldata/">
               All Data
               <span className="hoverable__tooltip">Track user submissions</span>
             </NavLink>
           </li>
-          {/* {
-            <li className="nav-item">
-              <NavLink className="nav-link hoverable" to="/logout/">
-                Logout
-                <span className="hoverable__tooltip">
-                  Sign out of your account
-                </span>
-              </NavLink>
-            </li>
-          } */}
         </ul>
       </div>
     </nav>
@@ -65,18 +63,4 @@ function NavBar() {
 
 export default NavBar;
 
-// Use Navbar for video: hightlight - add/remove css class (let React update/handle the DOM) -> NavLink, hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling
-
-// Future improvements!
-
-// Create Account
-// Check if email is an actual email address
-// Check if user already exists
-
-// Deposit and Withdraw
-// type="number"
-// min="1"
-// onChange={(e) => setDeposit(Number(e.currentTarget.value))}
-
-// Login and Logout
-// Don't allow user to log back in unless logged out
+// Use Navbar for video walkthrough: 1) hightlight - add/remove css class (let React update/handle the DOM) -> NavLink, 2) hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling

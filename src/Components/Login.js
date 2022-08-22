@@ -2,16 +2,20 @@ import { useState, useContext } from "react";
 import { UserContext, Card } from "./Context";
 
 function Login() {
-  const [showForm, setShowForm] = useState(true);
   const [disableLogin, setDisableLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [showError, setShowError] = useState(false);
-  const [loggedInName, setLoggedInName] = useState("");
 
   const cxt = useContext(UserContext);
   const users = cxt.users;
+  // Check for a logged in user
+  const currentUser = users.filter((user) => user.loggedIn === true);
+  // If so, set user as logged in
+  const [loggedInUser, setLoggedInUser] = useState(
+    currentUser.length > 0 ? currentUser[0] : ""
+  );
 
   function handleChange(value) {
     // Disable login button if email and password fields are blank
@@ -37,15 +41,17 @@ function Login() {
 
   function confirmUser(email, password) {
     // Confirm email
-    const currentUser = users.filter((user) => user.email === email);
+    const inputUser = users.filter((user) => user.email === email);
 
-    if (currentUser.length > 0) {
+    if (inputUser.length > 0) {
       // Email exists
-      if (currentUser[0].password === password) {
+      if (inputUser[0].password === password) {
         // Password exists
-        const currentName = currentUser[0].name;
-        setLoggedInName(currentName);
         setLoginError("");
+        // Set user's status to logged in
+        inputUser[0].loggedIn = true;
+        // Set logged in user to current user
+        setLoggedInUser(inputUser[0]);
         return true;
       } else {
         // Password does not exist
@@ -74,21 +80,18 @@ function Login() {
 
     // Confirm user exists
     if (!confirmUser(email, password)) return;
-
-    // Show success message
-    setShowForm(false);
-
-    // Show logout on nav bar
   }
 
   return (
     <Card
       bgcolor="light"
       txtcolor="black"
-      header={showForm ? "Login" : "Success!"}
+      header={loggedInUser ? "Success!" : "Login"}
       body={
         <>
-          {showForm ? (
+          {loggedInUser ? (
+            <div id="loginSuccess">Welcome back, {loggedInUser.name}!</div>
+          ) : (
             <>
               <div>
                 Email
@@ -129,8 +132,6 @@ function Login() {
                 </button>
               </div>
             </>
-          ) : (
-            <div id="loginSuccess">Welcome back, {loggedInName}!</div>
           )}
         </>
       }
