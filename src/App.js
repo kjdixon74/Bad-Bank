@@ -10,7 +10,7 @@ import AllData from "./Components/AllData";
 import Logout from "./Components/Logout";
 import "./App.css";
 
-// Create a routing mechanism, reference component that was written, & provide paths for where the components should be loaded
+// Create a context to share user information across relevant components
 
 export const UserContext = createContext(null);
 
@@ -24,6 +24,8 @@ function App() {
       loggedIn: false,
     },
   ]);
+
+  // Create routing, reference components that were written, & provide paths for where the components should be loaded
 
   return (
     <BrowserRouter>
@@ -44,3 +46,5 @@ function App() {
 }
 
 export default App;
+
+// Video refactor - front end modifications - routing - HashRouter -> BrowserRouter, remove Link, add Routes

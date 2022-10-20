@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
+// Style nav bar with Bootstrap
 function NavBar() {
   return (
-    // Style nav bar with Bootstrap
     // Highlight nav bar item when on page with NavLink
     <nav className="navbar navbar-expand-lg">
       <div className="collapse navbar-collapse" id="navbarNav">
