@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
-import { UserContext, Card } from "./Context";
+import { Card } from "./Context";
+import { UserContext } from "../App";
 
 function Logout() {
-  const cxt = useContext(UserContext);
-  const users = cxt.users;
+  const { users } = useContext(UserContext);
+
   // Check for a logged in user
   const currentUser = users.filter((user) => user.loggedIn === true);
   // If so, set user as logged in
@@ -30,8 +31,6 @@ function Logout() {
 
   return loggedInUser ? (
     <Card
-      bgcolor="light"
-      txtcolor="black"
       header="Click below when you are ready to log out."
       body={
         <button type="submit" onClick={handleLogout} id="logoutBtn">

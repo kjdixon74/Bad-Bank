@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import { UserContext, Card } from "./Context";
+import { Card } from "./Context";
+import { UserContext } from "../App";
 
 function Login() {
   const [disableLogin, setDisableLogin] = useState(true);
@@ -8,8 +9,9 @@ function Login() {
   const [loginError, setLoginError] = useState("");
   const [showError, setShowError] = useState(false);
 
-  const cxt = useContext(UserContext);
-  const users = cxt.users;
+  // Is it better to use setUsers?
+  const { users } = useContext(UserContext);
+
   // Check for a logged in user
   const currentUser = users.filter((user) => user.loggedIn === true);
   // If so, set user as logged in
@@ -84,8 +86,6 @@ function Login() {
 
   return (
     <Card
-      bgcolor="light"
-      txtcolor="black"
       header={loggedInUser ? "Success!" : "Login"}
       body={
         <>

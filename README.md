@@ -12,6 +12,15 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 2. Clone repository to local machine
 3. Move to project directory and run "npm start" in terminal
 
+## Technology Used
+
+- HTML
+- CSS
+- Bootstrap
+- JavaScript
+- React
+- Node.js
+
 ## Roadmap of Future Improvements
 
 #### Create Account
@@ -28,6 +37,10 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - type="number"
 - min="1"
 - onChange={(e) => setDeposit(Number(e.currentTarget.value))}
+
+#### Refactor similar code
+
+- Implement a Form component
 
 ## License Information
 

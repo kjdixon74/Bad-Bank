@@ -1,10 +1,10 @@
 import userEvent from "@testing-library/user-event";
 import { useContext } from "react";
-import { UserContext, Card } from "./Context";
+import { Card } from "./Context";
+import { UserContext } from "../App";
 
 function AllData() {
-  const cxt = useContext(UserContext);
-  const users = cxt.users;
+  const { users } = useContext(UserContext);
 
   const userElement = users.map((user, index) => (
     <tbody key={index}>
@@ -26,8 +26,6 @@ function AllData() {
 
   return (
     <Card
-      bgcolor="light"
-      txtcolor="black"
       header="User Submissions"
       body={
         <table className="table table-sm">

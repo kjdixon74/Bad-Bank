@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
-import { UserContext, Card } from "./Context";
+import { Card } from "./Context";
+import { UserContext } from "../App";
 
 function Deposit() {
   const [depositAmt, setDepositAmt] = useState("");
@@ -8,8 +9,8 @@ function Deposit() {
   const [showError, setShowError] = useState(false);
   const [showForm, setShowForm] = useState(true);
 
-  const cxt = useContext(UserContext);
-  const users = cxt.users;
+  const { users } = useContext(UserContext);
+
   // Check for a logged in user
   const currentUser = users.filter((user) => user.loggedIn === true);
   // If so, show user's account balance
@@ -87,8 +88,6 @@ function Deposit() {
     <>
       {currentUser.length > 0 ? (
         <Card
-          bgcolor="light"
-          txtcolor="black"
           header={showForm ? "How much would you like to deposit?" : "Success!"}
           body={
             <>

@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
-import { UserContext } from "./Components/Context";
+import { useState, createContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/Navbar";
 import Home from "./Components/Home";
 import CreateAccount from "./Components/CreateAccount";
@@ -13,26 +12,23 @@ import "./App.css";
 
 // Create a routing mechanism, reference component that was written, & provide paths for where the components should be loaded
 
+export const UserContext = createContext(null);
+
 function App() {
-  useContext(UserContext);
+  const [users, setUsers] = useState([
+    {
+      name: "kat",
+      email: "kat@mit.edu",
+      password: "secret",
+      balance: 100,
+      loggedIn: false,
+    },
+  ]);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <NavBar />
-      <br />
-      <UserContext.Provider
-        value={{
-          users: [
-            {
-              name: "kat",
-              email: "kat@mit.edu",
-              password: "secret",
-              balance: 100,
-              loggedIn: false,
-            },
-          ],
-        }}
-      >
+      <UserContext.Provider value={{ users, setUsers }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createaccount/" element={<CreateAccount />} />
@@ -43,7 +39,7 @@ function App() {
           <Route path="/logout/" element={<Logout />} />
         </Routes>
       </UserContext.Provider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

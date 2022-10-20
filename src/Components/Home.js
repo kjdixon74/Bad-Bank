@@ -3,8 +3,6 @@ import { Card } from "./Context";
 function Home() {
   return (
     <Card
-      bgcolor="light"
-      txtcolor="black"
       header="Bank without the pranks."
       title="Welcome to Bad Bank!"
       text="We're here to help you suceed with all your banking needs."
