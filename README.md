@@ -38,10 +38,6 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - min="1"
 - onChange={(e) => setDeposit(Number(e.currentTarget.value))}
 
-#### Refactor similar code
-
-- Implement a Form component
-
 ## License Information
 
 MIT License

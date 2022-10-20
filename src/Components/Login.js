@@ -1,31 +1,23 @@
 import { useState, useContext } from "react";
 import { Card } from "./Context";
 import { UserContext } from "../App";
+import Form from "./Form";
 
-function Form(props) {
+function LoginForm(props) {
+  // Set React state variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableLogin, setDisableLogin] = useState(true);
 
-  function handleChange(value) {
-    // Disable login button if email and password fields are blank
-    if (value) {
-      setDisableLogin(false);
-    } else {
-      setDisableLogin(true);
-    }
-  }
-
   function validate(field, label) {
+    // Check if any fields are blank
     if (!field) {
       // No email or password
-      props.setLoginError(`Error: ${label} required.`);
-      props.setShowError(true);
-      setTimeout(() => props.setShowError(false), 3000);
+      props.setStatus("Error: " + label + " is required.");
+      setTimeout(() => props.setStatus(""), 3000);
       return false;
     }
 
-    props.setLoginError("");
     return true;
   }
 
@@ -37,7 +29,7 @@ function Form(props) {
       // Email exists
       if (inputUser[0].password === password) {
         // Password exists
-        props.setLoginError("");
+        props.setStatus("");
         // Set user's status to logged in
         inputUser[0].loggedIn = true;
         // Set logged in user to current user
@@ -45,18 +37,16 @@ function Form(props) {
         return true;
       } else {
         // Password does not exist
-        props.setLoginError("Error: incorrect password.");
-        props.setShowError(true);
-        setTimeout(() => props.setShowError(false), 3000);
+        props.setStatus("Error: incorrect password.");
+        setTimeout(() => props.setStatus(""), 3000);
         return false;
       }
     } else {
       // Email does not exist
-      props.setLoginError(
+      props.setStatus(
         "Error: email does not exist.  Please enter a valid email, or create a new account."
       );
-      props.setShowError(true);
-      setTimeout(() => props.setShowError(false), 3000);
+      setTimeout(() => props.setStatus(""), 3000);
       return false;
     }
   }
@@ -74,33 +64,17 @@ function Form(props) {
 
   return (
     <>
-      Email
-      <input
-        type="email"
-        placeholder="Enter email here"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
-        className="form-control"
+      <Form
+        createAccount={false}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        disable={disableLogin}
+        setDisable={setDisableLogin}
+        btnName="Login"
+        handleClick={handleLogin}
       />
-      <br />
-      Password
-      <input
-        type="password"
-        placeholder="Enter password here"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
-        className="form-control"
-      />
-      <br />
-      <button type="submit" onClick={handleLogin} disabled={disableLogin}>
-        Login
-      </button>
     </>
   );
 }
@@ -111,13 +85,13 @@ function Login() {
 
   // Check for a logged in user
   const currentUser = users.filter((user) => user.loggedIn === true);
+  console.log(currentUser);
   // If so, set user as logged in
   const [loggedInUser, setLoggedInUser] = useState(
     currentUser.length > 0 ? currentUser[0] : ""
   );
 
-  const [loginError, setLoginError] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [status, setStatus] = useState("");
 
   return (
     <Card
@@ -127,16 +101,15 @@ function Login() {
           {loggedInUser ? (
             <div>Welcome back, {loggedInUser.name}!</div>
           ) : (
-            <Form
+            <LoginForm
               users={users}
               setLoggedInUser={setLoggedInUser}
-              setloginError={setLoginError}
-              setShowError={setShowError}
+              setStatus={setStatus}
             />
           )}
         </>
       }
-      status={showError && <div>{loginError}</div>}
+      status={status}
     />
   );
 }

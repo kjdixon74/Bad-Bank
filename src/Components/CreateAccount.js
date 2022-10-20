@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import { Card } from "./Context";
+import Form from "./Form";
 
 function CreateForm(props) {
   const { users, setUsers } = useContext(UserContext);
@@ -10,11 +11,6 @@ function CreateForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableCreate, setDisableCreate] = useState(true);
-
-  function handleChange(inputValue) {
-    // Disable create account button if all fields are blank
-    inputValue ? setDisableCreate(false) : setDisableCreate(true);
-  }
 
   function validate(field, label) {
     // Check if any fields are blank
@@ -69,46 +65,19 @@ function CreateForm(props) {
 
   return (
     <>
-      Name
-      <input
-        type="text"
-        placeholder="Enter name here"
-        value={name}
-        onChange={(e) => {
-          setName(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
-        className="form-control"
+      <Form
+        createAccount={true}
+        name={name}
+        setName={setName}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+        disable={disableCreate}
+        setDisable={setDisableCreate}
+        btnName="Create Account"
+        handleClick={handleCreate}
       />
-      <br />
-      Email
-      <input
-        type="email"
-        placeholder="Enter email address here"
-        value={email}
-        onChange={(e) => {
-          setEmail(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
-        className="form-control"
-      />
-      <br />
-      Password (8 character minimum)
-      <input
-        type="password"
-        placeholder="Enter password here"
-        value={password}
-        onChange={(e) => {
-          setPassword(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
-        className="form-control"
-      />
-      <br />
-      <button type="submit" onClick={handleCreate} disabled={disableCreate}>
-        Create Account
-      </button>
-      <br />
     </>
   );
 }
