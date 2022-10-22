@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../App";
 import { Card } from "./Context";
 import Form from "./Form";
+import validate from "./validate";
 
 function CreateForm(props) {
   const { users, setUsers } = useContext(UserContext);
@@ -11,17 +12,6 @@ function CreateForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableCreate, setDisableCreate] = useState(true);
-
-  function validate(field, label) {
-    // Check if any fields are blank
-    if (!field) {
-      props.setStatus("Error: " + label + " is required.");
-      setTimeout(() => props.setStatus(""), 3000);
-      return false;
-    }
-
-    return true;
-  }
 
   function checkLength(field, label) {
     // Check if password is less than 8 characters
@@ -45,9 +35,10 @@ function CreateForm(props) {
 
   function handleCreate() {
     // Validate name, email, password
-    if (!validate(name, "name")) return;
-    if (!validate(email, "email")) return;
-    if (!validate(password, "password")) return;
+    if (!validate(name, props.setStatus, "name")) return;
+    if (!validate(email, props.setStatus, "email")) return;
+    if (!validate(password, props.setStatus, "password")) return;
+
     if (!checkLength(password, "password")) return;
 
     // If validate all fields, create user

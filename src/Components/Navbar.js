@@ -8,7 +8,7 @@ function NavBar() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/">
+            <NavLink className="navbar-brand nav-link hoverable" to="/">
               Bad Bank
               <span className="hoverable__tooltip">Official home page</span>
             </NavLink>
@@ -42,18 +42,31 @@ function NavBar() {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/logout/">
-              Logout
-              <span className="hoverable__tooltip">
-                Sign out of your account
-              </span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink className="nav-link hoverable" to="/alldata/">
               All Data
               <span className="hoverable__tooltip">Track user submissions</span>
             </NavLink>
+          </li>
+          <li className="nav-item dropdown">
+            <a
+              className="nav-link dropdown-toggle username"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Username
+            </a>
+            <ul className="dropdown-menu dropdown-menu-end">
+              <li>
+                <NavLink className="dropdown-item hoverable" to="/logout/">
+                  Logout
+                  <span className="hoverable__tooltip">
+                    Sign out of your account
+                  </span>
+                </NavLink>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>

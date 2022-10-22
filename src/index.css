@@ -21,6 +21,11 @@ code {
   color: white;
 }
 
+.dropdown {
+  position: absolute;
+  right: 0px;
+}
+
 th,
 td {
   font-size: xx-small;
@@ -29,6 +34,12 @@ td {
 /* Highlight nav bar item when on page */
 .active {
   background-color: rgb(166, 162, 162);
+}
+
+/* Highlight dropdown item when on page */
+a.dropdown-item.hoverable.active {
+  background-color: rgb(166, 162, 162);
+  color: black;
 }
 
 /* Display description of page on mouse hover */

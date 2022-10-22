@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Card } from "./Context";
 import { UserContext } from "../App";
 import Form from "./Form";
+import validate from "./validate";
 
 function LoginForm(props) {
   // Set React state variables
@@ -9,19 +10,9 @@ function LoginForm(props) {
   const [password, setPassword] = useState("");
   const [disableLogin, setDisableLogin] = useState(true);
 
-  function validate(field, label) {
-    // Check if any fields are blank
-    if (!field) {
-      // No email or password
-      props.setStatus("Error: " + label + " is required.");
-      setTimeout(() => props.setStatus(""), 3000);
-      return false;
-    }
+  let username;
 
-    return true;
-  }
-
-  function confirmUser(email, password) {
+  function authenticate(email, password) {
     // Confirm email
     const inputUser = props.users.filter((user) => user.email === email);
 
@@ -32,8 +23,9 @@ function LoginForm(props) {
         props.setStatus("");
         // Set user's status to logged in
         inputUser[0].loggedIn = true;
-        // Set logged in user to current user
-        props.setLoggedInUser(inputUser[0]);
+        // Show successful login message
+        props.setShowForm(inputUser[0]);
+        username = inputUser[0].name;
         return true;
       } else {
         // Password does not exist
@@ -52,14 +44,15 @@ function LoginForm(props) {
   }
 
   function handleLogin() {
-    // Validate email
-    if (!validate(email, "email")) return;
-
-    // Validate password
-    if (!validate(password, "password")) return;
+    // Validate email and password
+    if (!validate(email, props.setStatus, "email")) return;
+    if (!validate(password, props.setStatus, "password")) return;
 
     // Confirm user exists
-    if (!confirmUser(email, password)) return;
+    if (!authenticate(email, password)) return;
+
+    // Display username
+    document.querySelector(".username").innerHTML = username;
   }
 
   return (
@@ -80,30 +73,27 @@ function LoginForm(props) {
 }
 
 function Login() {
-  // Is it better to use setUsers?
   const { users } = useContext(UserContext);
 
   // Check for a logged in user
-  const currentUser = users.filter((user) => user.loggedIn === true);
-  console.log(currentUser);
-  // If so, set user as logged in
-  const [loggedInUser, setLoggedInUser] = useState(
-    currentUser.length > 0 ? currentUser[0] : ""
-  );
+  const loggedInUser = users.filter((user) => user.loggedIn === true);
+
+  // If none, show login form
+  const [showForm, setShowForm] = useState(loggedInUser.length > 0);
 
   const [status, setStatus] = useState("");
 
   return (
     <Card
-      header={loggedInUser ? "Success!" : "Login"}
+      header={showForm ? "Success!" : "Login"}
       body={
         <>
-          {loggedInUser ? (
-            <div>Welcome back, {loggedInUser.name}!</div>
+          {showForm ? (
+            <div>Welcome back, {loggedInUser[0].name}!</div>
           ) : (
             <LoginForm
               users={users}
-              setLoggedInUser={setLoggedInUser}
+              setShowForm={setShowForm}
               setStatus={setStatus}
             />
           )}

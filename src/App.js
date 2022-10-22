@@ -11,7 +11,6 @@ import Logout from "./Components/Logout";
 import "./App.css";
 
 // Create a context to share user information across relevant components
-
 export const UserContext = createContext(null);
 
 function App() {
