@@ -7,6 +7,7 @@ import Login from "./Components/Login";
 import Deposit from "./Components/Deposit";
 import Withdraw from "./Components/Withdraw";
 import AllData from "./Components/AllData";
+import Profile from "./Components/Profile";
 import Logout from "./Components/Logout";
 import "./App.css";
 
@@ -19,17 +20,22 @@ function App() {
       name: "kat",
       email: "kat@mit.edu",
       password: "secret",
+      role: "Customer",
       balance: 100,
       loggedIn: false,
     },
   ]);
 
+  const [showUserName, setShowUserName] = useState(false);
+
   // Create routing, reference components that were written, & provide paths for where the components should be loaded
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <UserContext.Provider value={{ users, setUsers }}>
+      <UserContext.Provider
+        value={{ users, setUsers, showUserName, setShowUserName }}
+      >
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createaccount/" element={<CreateAccount />} />
@@ -37,6 +43,7 @@ function App() {
           <Route path="/deposit/" element={<Deposit />} />
           <Route path="/withdraw/" element={<Withdraw />} />
           <Route path="/alldata/" element={<AllData />} />
+          <Route path="/profile/" element={<Profile />} />
           <Route path="/logout/" element={<Logout />} />
         </Routes>
       </UserContext.Provider>

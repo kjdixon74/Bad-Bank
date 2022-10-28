@@ -46,6 +46,25 @@ function Form(props) {
         className="form-control"
       />
       <br />
+      {props.createAccount && (
+        <>
+          Role
+          <select
+            name="role"
+            className="form-control"
+            value={props.role}
+            onChange={(e) => {
+              props.setRole(e.currentTarget.value);
+              handleChange(e.currentTarget.value);
+            }}
+          >
+            <option value="">--Choose role here--</option>
+            <option value="Bank Employee">Bank Employee</option>
+            <option value="Customer">Customer</option>
+          </select>
+          <br />
+        </>
+      )}
       <button
         type="submit"
         onClick={props.handleClick}

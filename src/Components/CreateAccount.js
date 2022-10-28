@@ -11,6 +11,7 @@ function CreateForm(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
   const [disableCreate, setDisableCreate] = useState(true);
 
   function checkLength(field, label) {
@@ -31,6 +32,7 @@ function CreateForm(props) {
     setName("");
     setEmail("");
     setPassword("");
+    setRole("");
   }
 
   function handleCreate() {
@@ -38,13 +40,14 @@ function CreateForm(props) {
     if (!validate(name, props.setStatus, "name")) return;
     if (!validate(email, props.setStatus, "email")) return;
     if (!validate(password, props.setStatus, "password")) return;
+    if (!validate(role, props.setStatus, "role")) return;
 
     if (!checkLength(password, "password")) return;
 
     // If validate all fields, create user
     setUsers([
       ...users,
-      { name, email, password, balance: 0, loggedIn: false },
+      { name, email, password, role, balance: 0, loggedIn: false },
     ]);
 
     // If validate all fields, clear form
@@ -64,6 +67,8 @@ function CreateForm(props) {
         setEmail={setEmail}
         password={password}
         setPassword={setPassword}
+        role={role}
+        setRole={setRole}
         disable={disableCreate}
         setDisable={setDisableCreate}
         btnName="Create Account"
@@ -113,3 +118,5 @@ function CreateAccount() {
 }
 
 export default CreateAccount;
+
+// Video additional feature (recommended) - bank employee vs. customer roles (authorization - only bank employees can view All Data)

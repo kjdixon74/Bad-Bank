@@ -1,4 +1,3 @@
-import userEvent from "@testing-library/user-event";
 import { useContext } from "react";
 import { Card } from "./Context";
 import { UserContext } from "../App";
@@ -46,3 +45,5 @@ function AllData() {
 }
 
 export default AllData;
+
+// Next step: only allow bank employees to view all data

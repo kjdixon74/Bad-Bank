@@ -28,10 +28,6 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - Check if email is an actual email address
 - Check if user already exists
 
-#### Login and Logout
-
-- Toggle between login and logout on navbar
-
 #### Deposit and Withdraw
 
 - type="number"

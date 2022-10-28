@@ -5,12 +5,12 @@ import Form from "./Form";
 import validate from "./validate";
 
 function LoginForm(props) {
+  const { setShowUserName } = useContext(UserContext);
+
   // Set React state variables
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disableLogin, setDisableLogin] = useState(true);
-
-  let username;
 
   function authenticate(email, password) {
     // Confirm email
@@ -25,7 +25,6 @@ function LoginForm(props) {
         inputUser[0].loggedIn = true;
         // Show successful login message
         props.setShowForm(inputUser[0]);
-        username = inputUser[0].name;
         return true;
       } else {
         // Password does not exist
@@ -51,8 +50,8 @@ function LoginForm(props) {
     // Confirm user exists
     if (!authenticate(email, password)) return;
 
-    // Display username
-    document.querySelector(".username").innerHTML = username;
+    // Display username and logout
+    setShowUserName(true);
   }
 
   return (

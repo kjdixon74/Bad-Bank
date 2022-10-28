@@ -26,20 +26,20 @@ code {
   right: 0px;
 }
 
+a.dropdown-item.hoverable.active,
+.dropdown-toggle {
+  color: black;
+}
+
 th,
 td {
   font-size: xx-small;
 }
 
-/* Highlight nav bar item when on page */
-.active {
-  background-color: rgb(166, 162, 162);
-}
-
-/* Highlight dropdown item when on page */
+/* Highlight nav bar and dropdown items when on page */
+.active,
 a.dropdown-item.hoverable.active {
   background-color: rgb(166, 162, 162);
-  color: black;
 }
 
 /* Display description of page on mouse hover */
