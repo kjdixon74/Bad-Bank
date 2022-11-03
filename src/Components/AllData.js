@@ -45,5 +45,3 @@ function AllData() {
 }
 
 export default AllData;
-
-// Next step: only allow bank employees to view all data

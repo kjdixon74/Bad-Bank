@@ -12,7 +12,9 @@ function CreateForm(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [accountType, setAccountType] = useState("");
   const [disableCreate, setDisableCreate] = useState(true);
+  let accountNumber;
 
   function checkLength(field, label) {
     // Check if password is less than 8 characters
@@ -27,12 +29,19 @@ function CreateForm(props) {
     return true;
   }
 
+  function generateAccountNumber() {
+    const randomNumber = Math.floor(Math.random() * 10000000000);
+    accountNumber = randomNumber;
+  }
+
   function clearForm() {
     // Reset values back to default
     setName("");
     setEmail("");
     setPassword("");
     setRole("");
+    setAccountType("");
+    accountNumber = 0;
   }
 
   function handleCreate() {
@@ -41,13 +50,26 @@ function CreateForm(props) {
     if (!validate(email, props.setStatus, "email")) return;
     if (!validate(password, props.setStatus, "password")) return;
     if (!validate(role, props.setStatus, "role")) return;
+    if (!validate(accountType, props.setStatus, "account type")) return;
 
     if (!checkLength(password, "password")) return;
+
+    // If validate all fields, create random account number
+    generateAccountNumber();
 
     // If validate all fields, create user
     setUsers([
       ...users,
-      { name, email, password, role, balance: 0, loggedIn: false },
+      {
+        name,
+        email,
+        password,
+        role,
+        accountType,
+        accountNumber,
+        balance: 0,
+        loggedIn: false,
+      },
     ]);
 
     // If validate all fields, clear form
@@ -69,6 +91,8 @@ function CreateForm(props) {
         setPassword={setPassword}
         role={role}
         setRole={setRole}
+        accountType={accountType}
+        setAccountType={setAccountType}
         disable={disableCreate}
         setDisable={setDisableCreate}
         btnName="Create Account"
@@ -120,3 +144,5 @@ function CreateAccount() {
 export default CreateAccount;
 
 // Video additional feature (recommended) - bank employee vs. customer roles (authorization - only bank employees can view All Data)
+// Video additional feature (recommended) - checking vs. savings account types
+// Video additional feature (recommended) - assign random account numbers to new accounts

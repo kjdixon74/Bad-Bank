@@ -65,6 +65,25 @@ function Form(props) {
           <br />
         </>
       )}
+      {props.createAccount && (
+        <>
+          Account Type
+          <select
+            name="type"
+            className="form-control"
+            value={props.accountType}
+            onChange={(e) => {
+              props.setAccountType(e.currentTarget.value);
+              handleChange(e.currentTarget.value);
+            }}
+          >
+            <option value="">--Choose account type here--</option>
+            <option value="Checking">Checking</option>
+            <option value="Savings">Savings</option>
+          </select>
+          <br />
+        </>
+      )}
       <button
         type="submit"
         onClick={props.handleClick}

@@ -7,6 +7,9 @@ function NavBar() {
   const { users, showUserName } = useContext(UserContext);
 
   const loggedInUser = users.filter((user) => user.loggedIn === true);
+  const bankEmployee = loggedInUser.filter(
+    (user) => user.role === "Bank Employee"
+  );
 
   return (
     // Highlight nav bar item when on page with NavLink
@@ -47,12 +50,16 @@ function NavBar() {
               </span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/alldata/">
-              All Data
-              <span className="hoverable__tooltip">Track user submissions</span>
-            </NavLink>
-          </li>
+          {bankEmployee.length > 0 && (
+            <li className="nav-item">
+              <NavLink className="nav-link hoverable" to="/alldata/">
+                All Data
+                <span className="hoverable__tooltip">
+                  Track user submissions
+                </span>
+              </NavLink>
+            </li>
+          )}
           {showUserName && (
             <li className="nav-item dropdown">
               <button
@@ -68,7 +75,7 @@ function NavBar() {
                   <NavLink className="dropdown-item hoverable" to="/profile/">
                     Profile
                     <span className="hoverable__tooltip">
-                      View & edit your account
+                      View your account details
                     </span>
                   </NavLink>
                 </li>
@@ -93,4 +100,6 @@ export default NavBar;
 
 // Use Navbar for video walkthrough: 1) hightlight - add/remove css class (let React update/handle the DOM) -> NavLink, 2) hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling
 
-// Video refactor - front end modifications - add Profile for logged in user to view and edit name, email, password, and role
+// Video refactor - front end modifications - 1) add Profile for logged in user to view account details, 2) only bank employees are allowed to view all data
+
+// LEFT OFF HERE - 1) Toggle between login and logout on navbar  2) Add OAuth2 authentication 3) Money transfer between users 4) Refactor deposit, withdraw, and logout (see context.js)

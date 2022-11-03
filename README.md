@@ -27,12 +27,17 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 
 - Check if email is an actual email address
 - Check if user already exists
+- Add ability for user to add multiple account types
 
 #### Deposit and Withdraw
 
 - type="number"
 - min="1"
 - onChange={(e) => setDeposit(Number(e.currentTarget.value))}
+
+#### Profile
+
+- Add ability for user to edit name, email, and password
 
 ## License Information
 

@@ -4,8 +4,9 @@ import { Card } from "./Context";
 
 function Profile() {
   const { users } = useContext(UserContext);
-
   const loggedInUser = users.filter((user) => user.loggedIn === true);
+  const { name, email, password, role, accountType, accountNumber, balance } =
+    loggedInUser[0];
 
   return (
     <Card
@@ -13,19 +14,28 @@ function Profile() {
       body={
         <ul className="list-group">
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            Name: {loggedInUser[0].name}
+            Name: {name}
             <span className="badge bg-light rounded-pill">🖊</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            Email: {loggedInUser[0].email}
+            Email: {email}
             <span className="badge bg-light rounded-pill">🖊</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            Password: {loggedInUser[0].password}
+            Password: {password}
             <span className="badge bg-light rounded-pill">🖊</span>
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            Role: {loggedInUser[0].role}
+            Role: {role}
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Account Type: {accountType}
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Account #: {accountNumber}
+          </li>
+          <li className="list-group-item d-flex justify-content-between align-items-center">
+            Balance: ${balance}
           </li>
         </ul>
       }
@@ -35,6 +45,4 @@ function Profile() {
 
 export default Profile;
 
-// Video additional feature (recommended/new) - user profile updates that are persistent/view & edit account details
-
-// Next step: add functionality to change name, email, and password
+// Video additional feature (new) - profile page to view account details
