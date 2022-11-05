@@ -106,4 +106,4 @@ function Form(props) {
 
 export default Form;
 
-// Video additional feature (new) - added Form & Transaction components and handleChange and validate global functions to abstract/consolidate similarities among Create Account, Login, Deposit, Withdraw, Transfer
+// Video additional feature (new) - added Form & Transaction components and handleChange and validate global functions to abstract/consolidate similarities among Create Account, Login, Deposit, Withdraw

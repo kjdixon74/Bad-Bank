@@ -108,5 +108,3 @@ export default NavBar;
 // Video refactor - front end modifications - 1) toggle between login and logout 2) add Profile for logged in user to view account details
 
 // Video refactor - authentication - 1) only bank employees are allowed to view All Data 2) only show users' deposit, withdraw, transfer, and profile when logged in
-
-// LEFT OFF HERE - 1) Money transfer between users 2) Transaction component for transfer? 3) Add OAuth2 authentication

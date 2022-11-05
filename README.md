@@ -35,6 +35,11 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - min="1"
 - onChange={(e) => setDeposit(Number(e.currentTarget.value))}
 
+#### Transfer
+
+- Add ability for users to make transfers between accounts
+- Incorporate Transaction component into Transfer
+
 #### Profile
 
 - Add ability for user to edit name, email, and password
