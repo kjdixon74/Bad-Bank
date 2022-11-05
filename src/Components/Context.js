@@ -18,4 +18,4 @@ export function Card(props) {
   );
 }
 
-// Come back to props.status for deposit, withdraw, and logout!
+// Come back to props.status for deposit, withdraw!

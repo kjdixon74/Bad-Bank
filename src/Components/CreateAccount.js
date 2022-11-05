@@ -143,6 +143,6 @@ function CreateAccount() {
 
 export default CreateAccount;
 
-// Video additional feature (recommended) - bank employee vs. customer roles (authorization - only bank employees can view All Data)
-// Video additional feature (recommended) - checking vs. savings account types
+// Video additional feature (recommended) - add bank employee and customer roles for different users
+// Video additional feature (recommended) - add checking and savings account types
 // Video additional feature (recommended) - assign random account numbers to new accounts

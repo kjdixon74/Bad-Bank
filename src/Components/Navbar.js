@@ -28,35 +28,48 @@ function NavBar() {
               <span className="hoverable__tooltip">Official way to join</span>
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/login/">
-              Login
-              <span className="hoverable__tooltip">Access your account</span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/deposit/">
-              Deposit
-              <span className="hoverable__tooltip">
-                Add money to your account
-              </span>
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link hoverable" to="/withdraw/">
-              Withdraw
-              <span className="hoverable__tooltip">
-                Remove money from your account
-              </span>
-            </NavLink>
-          </li>
+          {showUserName ? (
+            <li className="nav-item">
+              <NavLink className="nav-link hoverable" to="/logout/">
+                Logout
+                <span className="hoverable__tooltip">
+                  Sign out of your account
+                </span>
+              </NavLink>
+            </li>
+          ) : (
+            <li className="nav-item">
+              <NavLink className="nav-link hoverable" to="/login/">
+                Login
+                <span className="hoverable__tooltip">Access your account</span>
+              </NavLink>
+            </li>
+          )}
+          {showUserName && (
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link hoverable" to="/deposit/">
+                  Deposit
+                  <span className="hoverable__tooltip">
+                    Add money to your account
+                  </span>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link hoverable" to="/withdraw/">
+                  Withdraw
+                  <span className="hoverable__tooltip">
+                    Remove money from your account
+                  </span>
+                </NavLink>
+              </li>
+            </>
+          )}
           {bankEmployee.length > 0 && (
             <li className="nav-item">
               <NavLink className="nav-link hoverable" to="/alldata/">
                 All Data
-                <span className="hoverable__tooltip">
-                  Track user submissions
-                </span>
+                <span className="hoverable__tooltip">Track user accounts</span>
               </NavLink>
             </li>
           )}
@@ -79,14 +92,6 @@ function NavBar() {
                     </span>
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink className="dropdown-item hoverable" to="/logout/">
-                    Logout
-                    <span className="hoverable__tooltip">
-                      Sign out of your account
-                    </span>
-                  </NavLink>
-                </li>
               </ul>
             </li>
           )}
@@ -100,6 +105,8 @@ export default NavBar;
 
 // Use Navbar for video walkthrough: 1) hightlight - add/remove css class (let React update/handle the DOM) -> NavLink, 2) hover - popup vs. tooltip, Bootstrap, Popper, React Bootstrap, React Tooltip -> CSS and tons of styling
 
-// Video refactor - front end modifications - 1) add Profile for logged in user to view account details, 2) only bank employees are allowed to view all data
+// Video refactor - front end modifications - 1) toggle between login and logout 2) add Profile for logged in user to view account details
 
-// LEFT OFF HERE - 1) Toggle between login and logout on navbar  2) Add OAuth2 authentication 3) Money transfer between users 4) Refactor deposit, withdraw, and logout (see context.js)
+// Video refactor - authentication - 1) only bank employees are allowed to view All Data 2) only show users' deposit, withdraw, transfer, and profile when logged in
+
+// LEFT OFF HERE - 1) Refactor deposit, withdraw (see context.js)  2) Money transfer between users 3) Transaction component for deposit, withdraw, and transfer? 4) Add OAuth2 authentication
