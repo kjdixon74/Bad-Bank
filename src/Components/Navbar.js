@@ -109,4 +109,4 @@ export default NavBar;
 
 // Video refactor - authentication - 1) only bank employees are allowed to view All Data 2) only show users' deposit, withdraw, transfer, and profile when logged in
 
-// LEFT OFF HERE - 1) Refactor deposit, withdraw (see context.js)  2) Money transfer between users 3) Transaction component for deposit, withdraw, and transfer? 4) Add OAuth2 authentication
+// LEFT OFF HERE - 1) Money transfer between users 2) Transaction component for transfer? 3) Add OAuth2 authentication

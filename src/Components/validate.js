@@ -1,7 +1,7 @@
-function validate(field, status, label) {
-  // Check if any fields are blank
-  if (!field) {
-    status("Error: " + label + " is required.");
+function validate(input, status, field) {
+  // Check if any inputs are blank
+  if (!input) {
+    status("Error: " + field + " is required.");
     setTimeout(() => status(""), 3000);
     return false;
   }

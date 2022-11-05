@@ -1,9 +1,6 @@
-function Form(props) {
-  function handleChange(inputValue) {
-    // Disable button if all fields are blank
-    inputValue ? props.setDisable(false) : props.setDisable(true);
-  }
+import handleChange from "./handleChange";
 
+function Form(props) {
   return (
     <>
       {props.createAccount && (
@@ -13,10 +10,13 @@ function Form(props) {
             type="text"
             placeholder="Enter name here"
             value={props.name}
-            onChange={(e) => {
-              props.setName(e.currentTarget.value);
-              handleChange(e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              handleChange(
+                e.currentTarget.value,
+                props.setName,
+                props.setDisable
+              )
+            }
             className="form-control"
           />
           <br />
@@ -27,10 +27,9 @@ function Form(props) {
         type="email"
         placeholder="Enter email address here"
         value={props.email}
-        onChange={(e) => {
-          props.setEmail(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
+        onChange={(e) =>
+          handleChange(e.currentTarget.value, props.setEmail, props.setDisable)
+        }
         className="form-control"
       />
       <br />
@@ -39,10 +38,13 @@ function Form(props) {
         type="password"
         placeholder="Enter password here"
         value={props.password}
-        onChange={(e) => {
-          props.setPassword(e.currentTarget.value);
-          handleChange(e.currentTarget.value);
-        }}
+        onChange={(e) =>
+          handleChange(
+            e.currentTarget.value,
+            props.setPassword,
+            props.setDisable
+          )
+        }
         className="form-control"
       />
       <br />
@@ -53,10 +55,13 @@ function Form(props) {
             name="role"
             className="form-control"
             value={props.role}
-            onChange={(e) => {
-              props.setRole(e.currentTarget.value);
-              handleChange(e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              handleChange(
+                e.currentTarget.value,
+                props.setRole,
+                props.setDisable
+              )
+            }
           >
             <option value="">--Choose role here--</option>
             <option value="Bank Employee">Bank Employee</option>
@@ -72,10 +77,13 @@ function Form(props) {
             name="type"
             className="form-control"
             value={props.accountType}
-            onChange={(e) => {
-              props.setAccountType(e.currentTarget.value);
-              handleChange(e.currentTarget.value);
-            }}
+            onChange={(e) =>
+              handleChange(
+                e.currentTarget.value,
+                props.setAccountType,
+                props.setDisable
+              )
+            }
           >
             <option value="">--Choose account type here--</option>
             <option value="Checking">Checking</option>
@@ -97,3 +105,5 @@ function Form(props) {
 }
 
 export default Form;
+
+// Video additional feature (new) - added Form & Transaction components and handleChange and validate global functions to abstract/consolidate similarities among Create Account, Login, Deposit, Withdraw, Transfer

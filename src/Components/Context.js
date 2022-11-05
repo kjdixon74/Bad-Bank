@@ -17,5 +17,3 @@ export function Card(props) {
     </div>
   );
 }
-
-// Come back to props.status for deposit, withdraw!

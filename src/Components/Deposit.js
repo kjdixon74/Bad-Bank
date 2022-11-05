@@ -1,141 +1,93 @@
 import { useState, useContext } from "react";
 import { Card } from "./Context";
 import { UserContext } from "../App";
+import { Balance, Transaction, Success } from "./Transaction";
 
 function Deposit() {
-  const [depositAmt, setDepositAmt] = useState("");
+  const [deposit, setDeposit] = useState("");
   const [disableDeposit, setDisableDeposit] = useState(true);
-  const [depositError, setDepositError] = useState("");
-  const [showError, setShowError] = useState(false);
+  const [status, setStatus] = useState("");
   const [showForm, setShowForm] = useState(true);
 
   const { users } = useContext(UserContext);
 
   // Check for a logged in user
-  const currentUser = users.filter((user) => user.loggedIn === true);
+  const loggedInUser = users.filter((user) => user.loggedIn === true);
+
   // If so, show user's account balance
-  const [accountBalance, setAccountBalance] = useState(
-    currentUser.length > 0 ? currentUser[0].balance : 0
-  );
-
-  function handleChange(value) {
-    // Update deposit value with user's input
-    setDepositAmt(value);
-
-    // Disable deposit button if no amount is input
-    if (value) {
-      setDisableDeposit(false);
-    } else {
-      setDisableDeposit(true);
-    }
-  }
+  const [balance, setBalance] = useState(loggedInUser[0].balance);
 
   function validate(input) {
     // Check if user's input is NaN
     if (isNaN(input)) {
-      setDepositError("Error: deposit amount is not a number.");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
+      setStatus("Error: deposit amount is not a number.");
+      setTimeout(() => setStatus(""), 3000);
       return false;
     }
 
     // Check if user's input is a negative number
     if (Number(input) < 0) {
-      setDepositError("Error: cannot deposit a negative amount.");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
+      setStatus("Error: cannot deposit a negative amount.");
+      setTimeout(() => setStatus(""), 3000);
       return false;
     }
 
     // Check if user's input is zero
     if (Number(input) === 0) {
-      setDepositError("Error: cannot deposit $0.");
-      setShowError(true);
-      setTimeout(() => setShowError(false), 3000);
+      setStatus("Error: cannot deposit $0.");
+      setTimeout(() => setStatus(""), 3000);
       return false;
     }
 
-    setDepositError("");
+    setStatus("");
     return true;
   }
 
   function handleDeposit() {
     // Validate deposit
-    if (!validate(depositAmt)) {
+    if (!validate(deposit)) {
       return;
     }
 
     // Convert deposit to a number, add to account balance, and update account balance
-    setAccountBalance(Number(depositAmt) + accountBalance);
+    setBalance(Number(deposit) + balance);
 
     // Update account balance for logged in user
-    if (currentUser.length > 0) {
-      currentUser[0].balance = Number(depositAmt) + accountBalance;
-    }
+    loggedInUser[0].balance = Number(deposit) + balance;
 
     // Show success message
     setShowForm(false);
   }
 
-  function clearForm() {
-    // Reset values back to default
-    setDepositAmt("");
-    setDisableDeposit(true);
-    setShowForm(true);
-  }
-
   return (
-    <>
-      {currentUser.length > 0 ? (
-        <Card
-          header={showForm ? "How much would you like to deposit?" : "Success!"}
-          body={
-            <>
-              <div>Current Account Balance</div>
-              <h4 id="depositAcctBal">
-                $
-                {accountBalance
-                  .toFixed(2)
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-              </h4>
-              <br />
-              {showForm ? (
-                <>
-                  <div>Amount</div>
-                  <input
-                    type="text"
-                    value={depositAmt}
-                    onChange={(e) => handleChange(e.currentTarget.value)}
-                    className="form-control"
-                    id="depositAmt"
-                  />
-                  {showError && <div>{depositError}</div>}
-                  <br />
-                  <button
-                    type="submit"
-                    onClick={handleDeposit}
-                    disabled={disableDeposit}
-                    id="depositBtn"
-                  >
-                    Deposit
-                  </button>
-                </>
-              ) : (
-                <>
-                  <h5>Your deposit has been received.</h5>
-                  <button type="submit" onClick={clearForm} id="clearDeposit">
-                    Make another deposit
-                  </button>
-                </>
-              )}
-            </>
-          }
-        />
-      ) : (
-        <h4>Please log in.</h4>
-      )}
-    </>
+    <Card
+      header={showForm ? "How much would you like to deposit?" : "Success!"}
+      title={<Balance balance={balance} />}
+      body={
+        <>
+          <br />
+          {showForm ? (
+            <Transaction
+              amount={deposit}
+              setAmount={setDeposit}
+              setDisable={setDisableDeposit}
+              handleClick={handleDeposit}
+              disable={disableDeposit}
+              type="Deposit"
+            />
+          ) : (
+            <Success
+              type="deposit"
+              message="received"
+              setType={setDeposit}
+              setDisable={setDisableDeposit}
+              setShowForm={setShowForm}
+            />
+          )}
+        </>
+      }
+      status={status}
+    />
   );
 }
 
