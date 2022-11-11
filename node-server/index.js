@@ -20,3 +20,5 @@ app.use(express.static(path.resolve(__dirname, "../react-client/build")));
 app.get("/", (req, res) => res.send("Hello World!"));
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
+
+// Video refactor - create Node.js server, add Express web application framework to Node.js
