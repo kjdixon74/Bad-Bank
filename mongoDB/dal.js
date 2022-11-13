@@ -52,7 +52,14 @@ export function readAllUsers() {
 }
 
 // Delete all users
-// Next step!!!
+export function deleteAllUsers() {
+  return new Promise((resolve, reject) => {
+    collection
+      .deleteMany({})
+      .then((users) => resolve(users))
+      .catch((error) => reject(error));
+  });
+}
 
 // Lesson learned - cannot call the createUser function in dal.js due to asynchronous operations - was receiving an error saying db was null because was trying to create a collection of users before connecting to the bad-bank database
 // Lesson learned - was resolving createUser promise with the return value of the db.collection.insertOne method, {acknowledged, insertedId}, which was then getting sent back as the response of the UI create user account route when invoked in the browser

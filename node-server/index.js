@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import { createUser, readAllUsers } from "../mongodb/dal.js";
+import { createUser, readAllUsers, deleteAllUsers } from "../mongodb/dal.js";
 
 // Create express app
 const app = express();
@@ -32,6 +32,14 @@ app.get("/user/create/:name/:email/:password", function (req, res) {
 app.get("/users/readAll", function (req, res) {
   readAllUsers().then((users) => {
     console.log(`Collection of users: ${JSON.stringify(users)}`);
+    res.send(users);
+  });
+});
+
+// Delete all users
+app.get("/users/deleteAll", function (req, res) {
+  deleteAllUsers().then((users) => {
+    console.log(`Delete ${users.deletedCount} users`);
     res.send(users);
   });
 });
