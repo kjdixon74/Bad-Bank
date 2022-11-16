@@ -20,12 +20,13 @@ app.use(express.static(path.resolve(__dirname, "../react-client/build")));
 
 // Create user
 app.get(
-  "/user/create/:name/:email/:password/:accountType/:accountNumber",
+  "/user/create/:name/:email/:password/:role/:accountType/:accountNumber",
   function (req, res) {
     createUser(
       req.params.name,
       req.params.email,
       req.params.password,
+      req.params.role,
       req.params.accountType,
       req.params.accountNumber
     ).then((user) => {

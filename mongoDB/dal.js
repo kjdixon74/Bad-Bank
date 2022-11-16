@@ -23,16 +23,26 @@ client
   .catch((error) => console.log(error));
 
 // Create user
-export function createUser(name, email, password, accountType, accountNumber) {
+export function createUser(
+  name,
+  email,
+  password,
+  role,
+  accountType,
+  accountNumber,
+  loggedIn
+) {
   return new Promise((resolve, reject) => {
     // New user
     const user = {
       name,
       email,
       password,
+      role,
       accountType,
       accountNumber,
       balance: 0,
+      loggedIn: false,
     };
 
     collection

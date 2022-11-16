@@ -34,6 +34,17 @@ function CreateForm(props) {
     accountNumber = randomNumber;
   }
 
+  function saveAccount() {
+    console.log(name, email, password, role, accountType, accountNumber);
+
+    const url = `/user/create/${name}/${email}/${password}/${role}/${accountType}/${accountNumber}`;
+    (async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    })();
+  }
+
   function clearForm() {
     // Reset values back to default
     setName("");
@@ -71,6 +82,9 @@ function CreateForm(props) {
         loggedIn: false,
       },
     ]);
+
+    // If validate all fields, send user account to MongoDB
+    saveAccount();
 
     // If validate all fields, clear form
     clearForm();
