@@ -19,14 +19,21 @@ app.use(cors());
 app.use(express.static(path.resolve(__dirname, "../react-client/build")));
 
 // Create user
-app.get("/user/create/:name/:email/:password", function (req, res) {
-  createUser(req.params.name, req.params.email, req.params.password).then(
-    (user) => {
+app.get(
+  "/user/create/:name/:email/:password/:accountType/:accountNumber",
+  function (req, res) {
+    createUser(
+      req.params.name,
+      req.params.email,
+      req.params.password,
+      req.params.accountType,
+      req.params.accountNumber
+    ).then((user) => {
       console.log(`Create user: ${JSON.stringify(user)}`);
       res.send(user);
-    }
-  );
-});
+    });
+  }
+);
 
 // Read all users
 app.get("/users/readAll", function (req, res) {

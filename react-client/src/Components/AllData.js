@@ -23,8 +23,8 @@ function AllData() {
           <tr>
             <td key={"name" + index}>{user.name}</td>
             <td key={"email" + index}>{user.email}</td>
-            {/* <td key={"accountType" + index}>{user.accountType}</td> */}
-            {/* <td key={"accountNumber" + index}>{user.accountNumber}</td> */}
+            <td key={"accountType" + index}>{user.accountType}</td>
+            <td key={"accountNumber" + index}>{user.accountNumber}</td>
             <td key={"balance" + index}>
               $
               {user.balance
@@ -49,8 +49,8 @@ function AllData() {
             <tr>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              {/* <th scope="col">Account Type</th> */}
-              {/* <th scope="col">Account #</th> */}
+              <th scope="col">Account Type</th>
+              <th scope="col">Account #</th>
               <th scope="col">Balance</th>
             </tr>
           </thead>
