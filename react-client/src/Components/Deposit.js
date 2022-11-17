@@ -43,6 +43,17 @@ function Deposit() {
     return true;
   }
 
+  function depositDatabase(balance) {
+    const email = loggedInUser[0].email;
+    console.log(email, balance);
+
+    const url = `/user/balance/${email}/${balance}`;
+    (async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+    })();
+  }
+
   function handleDeposit() {
     // Validate deposit
     if (!validate(deposit)) {
@@ -50,10 +61,14 @@ function Deposit() {
     }
 
     // Convert deposit to a number, add to account balance, and update account balance
-    setBalance(Number(deposit) + balance);
+    const updatedAmount = Number(deposit) + balance;
+    setBalance(updatedAmount);
+
+    // Update balance in MongoDB
+    depositDatabase(updatedAmount);
 
     // Update account balance for logged in user
-    loggedInUser[0].balance = Number(deposit) + balance;
+    loggedInUser[0].balance = updatedAmount;
 
     // Show success message
     setShowForm(false);

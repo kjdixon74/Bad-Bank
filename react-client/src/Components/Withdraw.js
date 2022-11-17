@@ -50,6 +50,17 @@ function Withdraw() {
     return true;
   }
 
+  function withdrawDatabase(balance) {
+    const email = loggedInUser[0].email;
+    console.log(email, balance);
+
+    const url = `/user/balance/${email}/${balance}`;
+    (async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+    })();
+  }
+
   function handleWithdraw() {
     // Validate withdraw
     if (!validate(withdraw)) {
@@ -57,10 +68,14 @@ function Withdraw() {
     }
 
     // Convert withdraw to a number, add to account balance, and update account balance
-    setBalance(balance - Number(withdraw));
+    const updatedAmount = balance - Number(withdraw);
+    setBalance(updatedAmount);
+
+    // Update balance in MongoDB
+    withdrawDatabase(updatedAmount);
 
     // Update account balance for logged in user
-    loggedInUser[0].balance = balance - Number(withdraw);
+    loggedInUser[0].balance = updatedAmount;
 
     // Show success message
     setShowForm(false);

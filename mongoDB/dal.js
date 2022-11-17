@@ -82,6 +82,16 @@ export function logoutUser(email) {
   });
 }
 
+// Update user balance
+export function updateBalance(email, balance) {
+  return new Promise((resolve, reject) => {
+    collection
+      .findOneAndUpdate({ email: email }, { $set: { balance: balance } })
+      .then((result) => resolve(result.value))
+      .catch((error) => reject(error));
+  });
+}
+
 // Delete all users
 export function deleteAllUsers() {
   return new Promise((resolve, reject) => {

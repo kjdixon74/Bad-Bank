@@ -27,7 +27,7 @@ function AllData() {
             <td key={"accountNumber" + index}>{user.accountNumber}</td>
             <td key={"balance" + index}>
               $
-              {user.balance
+              {Number(user.balance)
                 .toFixed(2)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -64,4 +64,3 @@ function AllData() {
 export default AllData;
 
 // Lesson learned - 1) struggled with handling the data type of the response from express server -> removed json.stringify 2) couldn't figure out why rendering twice -> tried useRef but finally checked for when the array was filled up on the 2nd render to do map method
-// LEFT OFF HERE! 1) Implement account type and number 2) DON'T FORGET TO REBUILD REACT ONCE FIGURE OUT

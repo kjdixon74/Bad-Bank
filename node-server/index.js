@@ -7,6 +7,7 @@ import {
   readAllUsers,
   loginUser,
   logoutUser,
+  updateBalance,
   deleteAllUsers,
 } from "../mongodb/dal.js";
 
@@ -62,6 +63,14 @@ app.get("/user/login/:email", function (req, res) {
 app.get("/user/logout/:email", function (req, res) {
   logoutUser(req.params.email).then((user) => {
     console.log(`Logout user: ${JSON.stringify(user)}`);
+    res.send(user);
+  });
+});
+
+// Update user balance
+app.get("/user/balance/:email/:balance", function (req, res) {
+  updateBalance(req.params.email, req.params.balance).then((user) => {
+    console.log(`User balance: ${JSON.stringify(user)}`);
     res.send(user);
   });
 });
