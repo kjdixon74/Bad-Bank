@@ -29,8 +29,7 @@ export function createUser(
   password,
   role,
   accountType,
-  accountNumber,
-  loggedIn
+  accountNumber
 ) {
   return new Promise((resolve, reject) => {
     // New user
@@ -59,6 +58,26 @@ export function readAllUsers() {
       .find({})
       .toArray()
       .then((users) => resolve(users))
+      .catch((error) => reject(error));
+  });
+}
+
+// Login user
+export function loginUser(email) {
+  return new Promise((resolve, reject) => {
+    collection
+      .findOneAndUpdate({ email: email }, { $set: { loggedIn: true } })
+      .then((result) => resolve(result.value))
+      .catch((error) => reject(error));
+  });
+}
+
+// Logout user
+export function logoutUser(email) {
+  return new Promise((resolve, reject) => {
+    collection
+      .findOneAndUpdate({ email: email }, { $set: { loggedIn: false } })
+      .then((result) => resolve(result.value))
       .catch((error) => reject(error));
   });
 }

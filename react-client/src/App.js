@@ -16,16 +16,16 @@ export const UserContext = createContext(null);
 
 function App() {
   const [users, setUsers] = useState([
-    {
-      name: "kat",
-      email: "kat@mit.edu",
-      password: "secret",
-      role: "Bank Employee",
-      accountType: "Checking",
-      accountNumber: 5729014782,
-      balance: 100,
-      loggedIn: false,
-    },
+    // {
+    //   name: "Kat",
+    //   email: "kat@mit.edu",
+    //   password: "secretzzz",
+    //   role: "Bank Employee",
+    //   accountType: "Checking",
+    //   accountNumber: 6142795677,
+    //   balance: 0,
+    //   loggedIn: false,
+    // },
   ]);
 
   const [showUserName, setShowUserName] = useState(false);

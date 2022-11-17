@@ -42,6 +42,17 @@ function LoginForm(props) {
     }
   }
 
+  function loginDatabase() {
+    console.log(email);
+
+    const url = `/user/login/${email}`;
+    (async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    })();
+  }
+
   function handleLogin() {
     // Validate email and password
     if (!validate(email, props.setStatus, "email")) return;
@@ -49,6 +60,9 @@ function LoginForm(props) {
 
     // Confirm user exists
     if (!authenticate(email, password)) return;
+
+    // Update login in MongoDB
+    loginDatabase();
 
     // Display username and logout
     setShowUserName(true);

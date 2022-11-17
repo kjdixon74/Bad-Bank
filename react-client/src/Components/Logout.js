@@ -12,13 +12,27 @@ function Logout() {
   const [showButton, setShowButton] = useState(loggedInUser.length > 0);
 
   const [userName, setUserName] = useState("");
-  // const [logoutMessage, setLogoutMessage] = useState("Please log in.");
+
+  function logoutDatabase() {
+    const email = loggedInUser[0].email;
+    console.log(email);
+
+    const url = `/user/logout/${email}`;
+    (async () => {
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    })();
+  }
 
   function handleLogout() {
     // Confirm user wants to logout
     if (window.confirm("Are you sure you want to log out?")) {
       // Customize goodbye message
       setUserName(loggedInUser[0].name);
+
+      // Update logout in MongoDB
+      logoutDatabase();
 
       // Set user's status to logged out
       loggedInUser[0].loggedIn = false;
