@@ -62,6 +62,17 @@ export function readAllUsers() {
   });
 }
 
+// Read user
+export function readUser(email) {
+  return new Promise((resolve, reject) => {
+    collection
+      .find({ email: email })
+      .toArray()
+      .then((user) => resolve(user))
+      .catch((error) => reject(error));
+  });
+}
+
 // Login user
 export function loginUser(email) {
   return new Promise((resolve, reject) => {

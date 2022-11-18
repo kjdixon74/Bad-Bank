@@ -6,7 +6,7 @@ export function Balance(props) {
       Current Account Balance
       <h4>
         $
-        {props.balance
+        {Number(props.balance)
           .toFixed(2)
           .toString()
           .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

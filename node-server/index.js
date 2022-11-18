@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import {
   createUser,
   readAllUsers,
+  readUser,
   loginUser,
   logoutUser,
   updateBalance,
@@ -48,6 +49,14 @@ app.get("/users/readAll", function (req, res) {
   readAllUsers().then((users) => {
     console.log(`Collection of users: ${JSON.stringify(users)}`);
     res.send(users);
+  });
+});
+
+// Read user
+app.get("/user/read/:email", function (req, res) {
+  readUser(req.params.email).then((user) => {
+    console.log(`User: ${JSON.stringify(user)}`);
+    res.send(user);
   });
 });
 

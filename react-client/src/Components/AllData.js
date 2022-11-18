@@ -1,24 +1,13 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import { Card } from "./Context";
-// import { UserContext } from "../App";
+import { UserContext } from "../App";
 
 function AllData() {
-  // const { users } = useContext(UserContext);
-  const [data, setData] = useState([]);
+  const { users } = useContext(UserContext);
 
-  useEffect(() => {
-    // Fetch all users from Express API
-    fetch("/users/readAll")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      });
-  }, []);
-
-  function userAccounts(data) {
-    if (data.length > 0) {
-      const userElement = data.map((user, index) => (
+  function userAccounts(users) {
+    if (users.length > 0) {
+      const userElement = users.map((user, index) => (
         <tbody key={index}>
           <tr>
             <td key={"name" + index}>{user.name}</td>
@@ -54,7 +43,7 @@ function AllData() {
               <th scope="col">Balance</th>
             </tr>
           </thead>
-          {userAccounts(data)}
+          {userAccounts(users)}
         </table>
       }
     />

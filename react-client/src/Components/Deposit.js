@@ -15,7 +15,7 @@ function Deposit() {
   const loggedInUser = users.filter((user) => user.loggedIn === true);
 
   // If so, show user's account balance
-  const [balance, setBalance] = useState(loggedInUser[0].balance);
+  const [balance, setBalance] = useState(Number(loggedInUser[0].balance));
 
   function validate(input) {
     // Check if user's input is NaN
