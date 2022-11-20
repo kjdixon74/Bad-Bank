@@ -3,6 +3,7 @@ import { Card } from "./Context";
 import { UserContext } from "../App";
 import Form from "./Form";
 import validate from "./validate";
+import { signInUser } from "./authenticate";
 
 function LoginForm(props) {
   const { setShowUserName } = useContext(UserContext);
@@ -49,6 +50,7 @@ function LoginForm(props) {
     (async () => {
       const response = await fetch(url);
       const data = await response.json();
+      console.log(data);
     })();
   }
 
@@ -59,6 +61,9 @@ function LoginForm(props) {
 
     // Confirm user exists
     if (!authenticate(email, password)) return;
+
+    // Sign in user using Firebase
+    signInUser(email, password);
 
     // Update login in MongoDB
     loginDatabase();

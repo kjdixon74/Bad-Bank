@@ -107,4 +107,6 @@ export default NavBar;
 
 // Video refactor - front end modifications - 1) toggle between login and logout 2) add Profile for logged in user to view account details
 
-// Video refactor - authentication - 1) only bank employees are allowed to view All Data 2) only show users' deposit, withdraw, transfer, and profile when logged in
+// Video refactor - authorization - only bank employees are allowed to view All Data
+
+// Method #1 of authentication - only show users' deposit, withdraw, transfer, and profile when logged in (password-protected)

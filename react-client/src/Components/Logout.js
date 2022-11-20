@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { Card } from "./Context";
 import { UserContext } from "../App";
+import { signOutUser } from "./authenticate";
 
 function Logout() {
   const { users, setShowUserName } = useContext(UserContext);
@@ -29,6 +30,9 @@ function Logout() {
     if (window.confirm("Are you sure you want to log out?")) {
       // Customize goodbye message
       setUserName(loggedInUser[0].name);
+
+      // Sign out user using Firebase
+      signOutUser();
 
       // Update logout in MongoDB
       logoutDatabase();

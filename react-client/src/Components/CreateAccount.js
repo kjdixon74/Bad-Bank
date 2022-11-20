@@ -3,6 +3,7 @@ import { UserContext } from "../App";
 import { Card } from "./Context";
 import Form from "./Form";
 import validate from "./validate";
+import { createUser } from "./authenticate";
 
 function CreateForm(props) {
   const { users, setUsers } = useContext(UserContext);
@@ -85,6 +86,9 @@ function CreateForm(props) {
 
     // If validate all fields, send user account to MongoDB
     saveAccount();
+
+    // If validate all fields, create user in Firebase
+    createUser(email, password);
 
     // If validate all fields, clear form
     clearForm();
