@@ -20,6 +20,9 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - JavaScript
 - React
 - Node.js
+- Express
+- MongoDB
+- Firebase
 
 ## Roadmap of Future Improvements
 

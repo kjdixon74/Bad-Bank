@@ -11,6 +11,7 @@ import {
   updateBalance,
   deleteAllUsers,
 } from "../mongodb/dal.js";
+import admin from "./admin.js";
 
 // Create express app
 const app = express();
@@ -90,6 +91,26 @@ app.get("/users/deleteAll", function (req, res) {
     console.log(`Delete ${users.deletedCount} users`);
     res.send(users);
   });
+});
+
+// Authenticate Express server routes
+app.get("/authenticate", function (req, res) {
+  // Read token from request's header
+  const idToken = req.headers.authorization;
+  console.log(`Request header idToken: ${idToken}`);
+
+  // Verify token
+  admin
+    .auth()
+    .verifyIdToken(idToken)
+    .then(function (decodedToken) {
+      console.log(`Decoded token: ${JSON.stringify(decodedToken)}`);
+      res.send("Authentication successful");
+    })
+    .catch(function (error) {
+      console.log(`Error: ${error}`);
+      res.send("Authentication failed");
+    });
 });
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
