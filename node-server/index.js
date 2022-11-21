@@ -116,3 +116,4 @@ app.get("/authenticate", function (req, res) {
 app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
 
 // Video refactor - create Node.js server, add Express web application framework to Node.js
+// Used RESTful API

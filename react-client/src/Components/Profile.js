@@ -35,7 +35,11 @@ function Profile() {
             Account #: {accountNumber}
           </li>
           <li className="list-group-item d-flex justify-content-between align-items-center">
-            Balance: ${balance}
+            Balance: $
+            {Number(balance)
+              .toFixed(2)
+              .toString()
+              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </li>
         </ul>
       }

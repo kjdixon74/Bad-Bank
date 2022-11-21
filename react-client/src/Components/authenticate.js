@@ -100,3 +100,5 @@ export function signOutUser() {
 }
 
 // Method #2 of authentication - Firebase password authentication for front-end
+// Challenges with authentication - where to place authentication in front end code -  issues with authenticating Express server routes because was trying to authenticate before a user was signed in via Firebase
+// Overcame by console logging to see the order of the log in/authentication process and moving the authentication to the appropriate spot -  after the user was successfully signed into Firebase

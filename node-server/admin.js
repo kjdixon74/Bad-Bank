@@ -10,3 +10,4 @@ admin.initializeApp({
 export default admin;
 
 // Method #3 of authentication - Firebase authentication for back-end - Express server routes
+// Challenge with authentication - importing json file; overcame with assert {type: "json"} above
