@@ -1,9 +1,9 @@
 import { MongoClient } from "mongodb";
 
 // Connection URL
-const url = "mongodb://localhost:27017";
+const url = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/bad-bank";
 // Connect to Mongo
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useNewUrlParser: true });
 
 let db = null;
 let collection = null;

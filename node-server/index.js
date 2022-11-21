@@ -10,7 +10,7 @@ import {
   logoutUser,
   updateBalance,
   deleteAllUsers,
-} from "../mongodb/dal.js";
+} from "./mongoDB/dal.js";
 import admin from "./admin.js";
 
 // Create express app
@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // May need to change port number...
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8000;
 
 // Use application-level middleware to add CORS HTTP header
 app.use(cors());
