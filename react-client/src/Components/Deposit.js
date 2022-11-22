@@ -47,7 +47,7 @@ function Deposit() {
     const email = loggedInUser[0].email;
     console.log(email, balance);
 
-    const url = `/user/balance/${email}/${balance}`;
+    const url = `https://bad-bank-backend-deploy.herokuapp.com/user/balance/${email}/${balance}`;
     (async () => {
       const response = await fetch(url);
       const data = await response.json();

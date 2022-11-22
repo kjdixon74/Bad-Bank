@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     // Fetch all users from Express API
-    fetch("/users/readAll")
+    fetch("https://bad-bank-backend-deploy.herokuapp.com/users/readAll")
       .then((response) => response.json())
       .then((data) => {
         setUsers(data);

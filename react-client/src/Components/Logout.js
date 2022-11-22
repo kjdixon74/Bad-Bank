@@ -18,7 +18,7 @@ function Logout() {
     const email = loggedInUser[0].email;
     console.log(email);
 
-    const url = `/user/logout/${email}`;
+    const url = `https://bad-bank-backend-deploy.herokuapp.com/user/logout/${email}`;
     (async () => {
       const response = await fetch(url);
       const data = await response.json();

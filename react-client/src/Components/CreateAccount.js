@@ -38,7 +38,7 @@ function CreateForm(props) {
   function saveAccount() {
     console.log(name, email, password, role, accountType, accountNumber);
 
-    const url = `/user/create/${name}/${email}/${password}/${role}/${accountType}/${accountNumber}`;
+    const url = `https://bad-bank-backend-deploy.herokuapp.com/user/create/${name}/${email}/${password}/${role}/${accountType}/${accountNumber}`;
     (async () => {
       const response = await fetch(url);
       const data = await response.json();

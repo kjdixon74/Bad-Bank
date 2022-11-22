@@ -46,7 +46,7 @@ function LoginForm(props) {
   function loginDatabase() {
     console.log(email);
 
-    const url = `/user/login/${email}`;
+    const url = `https://bad-bank-backend-deploy.herokuapp.com/user/login/${email}`;
     (async () => {
       const response = await fetch(url);
       const data = await response.json();
