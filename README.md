@@ -4,13 +4,22 @@ Bad Bank
 
 ## Description
 
-A bank with 0% security but 100% fun! Create an account, login, and handle all your online banking needs.
+An online bank for users to create an account, log in/out, make a deposit/withdraw, and handle all their banking needs.
 
 ## How To Run
 
+#### In the cloud
+
+Navigate to https://katherine-dixonfullstackbankingapp.netlify.app/ in the browser
+
+#### Locally
+
 1. Fork repository to GitHub account
 2. Clone repository to local machine
-3. Move to project directory and run "npm start" in terminal
+3. Move to node-server folder under project directory and run `npm install` in terminal
+4. Move to react-client folder under project directory and run `npm install` in terminal
+5. Move back to node-server folder and run `npm run start` in terminal
+6. Navigate to http://localhost:8000/ in browser
 
 ## Technology Used
 
@@ -20,9 +29,11 @@ A bank with 0% security but 100% fun! Create an account, login, and handle all y
 - JavaScript
 - React
 - Node.js
-- Express
+- Express.js
 - MongoDB
 - Firebase
+- Heroku
+- Netlify
 
 ## Roadmap of Future Improvements
 
